@@ -79,7 +79,7 @@ jobs:
       - run: npm run prod
       - run:
           name: archive artifacts
-          command: zip -ryq todo-ci.zip
+          command: zip -ryq todo-ci.zip .
       - aws-cli/install
       - run:
           name: archive artifacts
