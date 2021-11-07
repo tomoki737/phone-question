@@ -82,12 +82,12 @@ jobs:
           command: zip -ryq todo-ci.zip .
       - aws-cli/install
       - run:
-          name: archive artifacts
+          name: upload artifacts to s3
           command: aws s3 cp todo-ci.zip s3://${AWS_S3_BUCKET_NAME}
       - run:
           name: deploy to prod
           command: |
-            aws deploy create-development \
+            aws deploy create-deployment \
             --application-name todolist \
             --deployment-group-name todolist \
             --s3-location bucket=${AWS_S3_BUCKET_NAME},key=todo-ci.zip,bundleType=zip
