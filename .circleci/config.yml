@@ -52,8 +52,8 @@ jobs:
   deploy:
     docker:
       - image: circleci/php:8.0-node-browsers
-        environment:
-          AWS_DEFAULT_BEGIN: ap-northeast-1
+    environment:
+      AWS_DEFAULT_REGION: ap-northeast-1
     steps:
       - checkout
       - run: sudo composer self-update --1
