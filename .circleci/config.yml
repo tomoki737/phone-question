@@ -81,7 +81,7 @@ jobs:
         name: archive artifacts
         command: zip -ryq todo-ci.zip
       - aws-cli/install
-      - run
+      - run:
         name: upload artifacts to s3
         command: aws s3 cp todo-ci.zip s3://${AWS_S3_BUCKET_NAME}
       - run:
