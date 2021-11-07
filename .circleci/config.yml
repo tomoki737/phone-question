@@ -17,6 +17,6 @@ jobs:
       - run: npm run dev
       - run:
           name: php test
-          command: vendor/bin/phpunitl
+          command: vendor/bin/phpunit
 
 #
