@@ -11,4 +11,4 @@
 |
 */
 
-Route::get('/', 'TodoListController@index');
+Route::get('/', 'TodoListController@index')->name('todo.index');
