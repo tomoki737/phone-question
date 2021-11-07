@@ -78,12 +78,12 @@ jobs:
             - node_modules
       - run: npm run prod
       - run:
-        name: archive artifacts
-        command: zip -ryq todo-ci.zip
+          name: archive artifacts
+          command: zip -ryq todo-ci.zip
       - aws-cli/install
       - run:
-        name: upload artifacts to s3
-        command: aws s3 cp todo-ci.zip s3://${AWS_S3_BUCKET_NAME}
+          name: archive artifacts
+          command: aws s3 cp todo-ci.zip s3://${AWS_S3_BUCKET_NAME}
       - run:
           name: deploy to prod
           command: |
