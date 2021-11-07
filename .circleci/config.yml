@@ -3,6 +3,19 @@ jobs:
   build:
     docker:
       - image: circleci/php:8.0-node-browsers
+      - image: circleci/mysql:8-ram
+        environment:
+          MYSQL_DB: larasns
+          MYSQL_USER: default
+          MYSQL_PASSWORD: secret
+    environment:
+      APP_ENV: testing
+      DB_CONNECTION: mysql
+      DB_HOST: localhost
+      DB_PORT: 3306
+      DB_DATABASE: larasns
+      DB_USERNAME: default
+      DB_PASSWORD: secret
     steps:
       - checkout
       - run: sudo composer self-update --1
@@ -27,5 +40,12 @@ jobs:
             - node_modules
       - run: npm run dev
       - run:
+         name: get ready mysql
+         command: |
+          sudo apt-get update
+          sudo apt-get install libpq-dev
+          sudo docker-php-ext-install pdo_pgsql
+          dockerize -wait tcp://localhost:3306 -timeout 1m
+      - run:
           name: php test
-          command: vendor/bin/phpunit tests/Feature/test.php
+          command: vendor/bin/phpunit 
