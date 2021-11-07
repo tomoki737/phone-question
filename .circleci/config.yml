@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/php:8.0-node-browsers
-      - image: docker pull circleci/mysql:8-ram
+      - image: circleci/mysql:8-ram
         environment:
           MYSQL_DB: larasns
           MYSQL_USER: default
