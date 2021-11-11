@@ -11,4 +11,6 @@
 |
 */
 
-Route::get('/', 'TodoListController@index')->name('todo.index');
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');
