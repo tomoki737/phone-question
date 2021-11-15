@@ -3,16 +3,16 @@ jobs:
   build:
     docker:
       - image: circleci/php:8.0-node-browsers
-      - image: circleci/mysql:8-ram
+      - image: circleci/postgres:11.6-alpine
         environment:
-          MYSQL_DB: larasns
-          MYSQL_USER: default
-          MYSQL_PASSWORD: secret
+          POSTGRES_DB: larasns
+          POSTGRES_USER: default
+          POSTGRES_PASSWORD: secret
     environment:
       APP_ENV: testing
-      DB_CONNECTION: mysql
-      DB_HOST: 127.0.0.1
-      DB_PORT: 3306
+      DB_CONNECTION: pgsql
+      DB_HOST: localhost
+      DB_PORT: 5432
       DB_DATABASE: larasns
       DB_USERNAME: default
       DB_PASSWORD: secret
@@ -40,12 +40,12 @@ jobs:
             - node_modules
       - run: npm run dev
       - run:
-         name: get ready mysql
-         command: |
-          sudo apt-get update
-          sudo apt-get install libpq-dev
-          sudo docker-php-ext-install pdo_mysql
-          dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
+          name: get ready for postgres
+          command: |
+            sudo apt-get update
+            sudo apt-get install libpq-dev
+            sudo docker-php-ext-install pdo_pgsql
+            dockerize -wait tcp://localhost:5432 -timeout 1m
       - run:
           name: php test
           command: vendor/bin/phpunit
