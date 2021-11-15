@@ -47,6 +47,11 @@ jobs:
           sudo docker-php-ext-install pdo_pgsql
           dockerize -wait tcp://localhost:3306 -timeout 1m
       - run:
+         name: Install PHP extensions
+         command: |
+          sudo docker-php-ext-install pdo_mysql
+          sudo docker-php-ext-enable pdo_mysql
+      - run:
           name: php test
           command: vendor/bin/phpunit
   deploy:
