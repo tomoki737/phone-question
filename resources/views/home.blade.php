@@ -4,5 +4,5 @@
 
 @section('content')
   @include('nav')
-
+<sample></sample>
 @endsection

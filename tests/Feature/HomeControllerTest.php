@@ -6,20 +6,15 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class test extends TestCase
+class HomeControllerTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
     use RefreshDatabase;
 
     public function testIndex()
     {
-        $response = $this->get(route('todo.index'));
+        $response = $this->get(route('home'));
 
         $response->assertStatus(200)
-            ->assertViewIs('todoList.index');
+            ->assertViewIs('home');
     }
 }
