@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', '記事一覧')
+@section('title', '一覧画面')
 
 @section('content')
 @include('nav')
@@ -8,11 +8,7 @@
     <div class="row">
         @include('nav-tabs')
         @foreach($questions as $question)
-        <span class="border-bottom bg-white">
-            <div class="h3">{{$question->title}}</div>
-            <div class="h3">{{$question->body}}</div>
-            <div class="h3">{{$question->user->name}}</div>
-        </span>
+        @include('card')
         @endforeach
     </div>
 </div>

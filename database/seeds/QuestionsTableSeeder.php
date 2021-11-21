@@ -17,6 +17,15 @@ class QuestionsTableSeeder extends Seeder
                'created_at'=>now(),
                'updated_at'=>now(),
            ],
+           [
+               'id' => 1,
+               'title' => 'TestTitl11111',
+               'body' => 'testBodyです1',
+               'solution' => false,
+               'user_id' => 1,
+               'created_at'=>now(),
+               'updated_at'=>now(),
+           ],
        ]
         );
     }

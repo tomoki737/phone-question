@@ -17,7 +17,7 @@ class CreateQuestionsTable extends Migration
             $table->bigIncrements('id');
             $table->text('title');
             $table->string('body');
-            $table->boolean('solution');
+            $table->boolean('solution')->default(false);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
