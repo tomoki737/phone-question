@@ -27,9 +27,9 @@
             ])
         </div>
         <div class="col-sm-12">
-        @foreach($questions as $question)
-        @include('card')
-        @endforeach
+            @foreach($questions as $question)
+            @include('card')
+            @endforeach
         </div>
     </div>
 </div>

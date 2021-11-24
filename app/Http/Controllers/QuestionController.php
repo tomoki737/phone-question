@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\QuestionRequest as QuestionRequest;
-use Illuminate\Http\Request;
-use App\Models\Question;
+use App\Question;
 class QuestionController extends Controller
 {
     public function __constract(){
         $this->authorizeResource(Question::class, 'question');
     }
+
     public function create()
     {
         return view('questions.create');
@@ -40,8 +40,10 @@ class QuestionController extends Controller
         $question->delete();
         return redirect(route('home'));
     }
+
     public function show(Question $question)
     {
-        return view('questions.show', ['question' => $question]);
+        $answers = $question->answer->sortByDesc('created_at');
+        return view('questions.show', ['question' => $question, 'answers' => $answers]);
     }
 }
