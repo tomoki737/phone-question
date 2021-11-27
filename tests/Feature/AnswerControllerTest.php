@@ -8,10 +8,11 @@ use Tests\TestCase;
 use App\Question;
 use App\User;
 use App\Answer;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AnswerControllerTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     public function testCreate()
     {
