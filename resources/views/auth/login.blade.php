@@ -10,26 +10,29 @@
         <div class="card mt-3 m-auto" style="width: 30rem;">
             <div class="card-body">
                 <div class="mx-auto">
-                @include('error_card_list')
-                <form method="POST" action="{{ route('login') }}">
-                @csrf
+                    @include('error_card_list')
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
                         <div class="form-group my-3">
                             <label for="email">メールアドレス</label>
                             <div class="col-sm-12 mx-auto mt-2">
-                                <input type="email" class="form-control" id="email" name ="email" placeholder="メールアドレス" required value="{{ old('email') }}">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="メールアドレス" required value="{{ old('email') }}">
                             </div>
                         </div>
-                        <div class="form-groupm mb-3">
+                        <div class="form-groupm mb-2">
                             <label for="exampleInputPassword1">パスワード</label>
                             <div class="col-sm-12 mx-auto mt-2">
                                 <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="パスワード">
                             </div>
                         </div>
                         <input type="hidden" name="remember" id="remember" value="on">
-                        <div class="card-body text-center">
-                        <button type="submit" class="btn btn-primary  mt-3">ログイン</button>
+                        <div class="d-grid gap-2 col-sm-12 mx-auto">
+                            <button type="submit" class="btn btn-primary mt-3">ログイン</button>
                         </div>
                     </form>
+                    <div class="row mt-2">
+                        <a href="{{route('register')}}" class="text-decoration-none col-sm-12 text-center text-dark">ユーザー登録はこちら</a>
+                    </div>
                 </div>
             </div>
         </div>

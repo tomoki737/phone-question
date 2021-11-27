@@ -20,11 +20,7 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            @include('users.tabs', [
-            'hasAnswer' => false,
-            'hasGood' => false,
-            'hasQuestion' => true,
-            ])
+            @include('users.index_good')
         </div>
         <div class="col-sm-12">
             @foreach($questions as $question)
