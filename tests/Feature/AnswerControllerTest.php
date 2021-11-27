@@ -2,8 +2,6 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Question;
 use App\User;
@@ -14,61 +12,45 @@ class AnswerControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testCreate()
+    public function setUp(): void
     {
-        $user = factory(User::class)->create();
-        $question = factory(Question::class)->create(['user_id' => $user->id]);
-        $answer = factory(Answer::class)->create(['user_id' => $user->id, 'question_id' => $question->id]);
-        $answerData =  [
+        parent::setUp();
+        $this->user = factory(User::class)->create();
+        $this->another_user = factory(User::class)->create();
+        $this->question = factory(Question::class)->create(['user_id' => $this->user->id]);
+        $this->answer = factory(Answer::class)->create(['user_id' => $this->user->id, 'question_id' => $this->question->id]);
+        $this->answerData =  [
             'body' => 'テストデータ',
         ];
-        $question_show_url = route('questions.show', ['question' => $question]);
-        $response = $this->actingAs($user)
-            ->get($question_show_url)
+    }
+
+    public function testCreate()
+    {
+        $response = $this->actingAs($this->user)
+            ->get(route('questions.show', ['question' => $this->question]))
             ->assertStatus(200);
-        $response = $this->actingAs($user)
-            ->put(route('answers.store', ['question' => $question->id]), $answerData);
+        $response = $this->actingAs($this->user)
+            ->put(route('answers.store', ['question' => $this->question->id]), $this->answerData);
         $response->assertStatus(302);
-        $response->assertRedirect($question_show_url);
+        $response->assertRedirect(route('questions.show', ['question' => $this->question]));
         $response->assertSessionHasNoErrors();
         $this->assertDatabaseHas('answers', [
             'body' => 'テストデータ'
         ]);
-        $response = $this->get($question_show_url)
+        $response = $this->get(route('questions.show', ['question' => $this->question]))
             ->assertStatus(200);
         $response->assertSeeText('回答');
-        $response->assertSeeText($answerData['body']);
+        $response->assertSeeText($this->answerData['body']);
     }
 
     public function testUpdate()
     {
-        $user = factory(User::class)->create();
-        $question = factory(Question::class)->create(['user_id' => $user->id]);
-        $answer = factory(Answer::class)->create(['user_id' => $user->id, 'question_id' => $question->id]);
-        $answerData =  [
-            'body' => 'テストデータ',
-        ];
-        $question_show_url = route('questions.show', ['question' => $question]);
-        $response = $this->actingAs($user)
-            ->get(route('answers.edit', ['answer' => $answer]));
-        $update_url = route('answers.update', ['answer' => $answer]);
-        $response = $this->put($update_url, $answerData);
+        $response = $this->actingAs($this->user)
+            ->get(route('answers.edit', ['answer' => $this->answer]));
+        $update_url = route('answers.update', ['answer' => $this->answer]);
+        $response = $this->put($update_url, $this->answerData);
         $response->assertStatus(302)
-            ->assertRedirect($question_show_url);
-        $this->assertDatabaseHas('answers', ['body' => 'テストデータ']);
-    }
-
-    public function testDelete()
-    {
-        $user = factory(User::class)->create();
-        $question = factory(Question::class)->create(['user_id' => $user->id]);
-        $question_show_url = route('questions.show', ['question' => $question]);
-        $answer = factory(Answer::class)->create(['user_id' => $user->id, 'question_id' => $question->id]);
-        $response = $this->actingAs($user)
-            ->from($question_show_url)
-            ->delete(route('answers.destroy', ['answer' => $answer]));
-        $response->assertStatus(302)
-            ->assertRedirect($question_show_url);
-        $this->assertDatabaseMissing('answers', ['id' => $answer->id]);
+            ->assertRedirect(route(''));
+        $this->assertDatabaseHas('answers', ['title' => 'テストデータ']);
     }
 }
