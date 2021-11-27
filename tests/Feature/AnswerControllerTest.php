@@ -22,24 +22,22 @@ class AnswerControllerTest extends TestCase
         $this->answerData =  [
             'body' => 'テストデータ',
         ];
-        $this->question_show_url = route('questions.show', ['question' => $this->question]);
     }
 
     public function testCreate()
     {
-
         $response = $this->actingAs($this->user)
-            ->get($this->question_show_url)
+            ->get(route('questions.show', ['question' => $this->question]))
             ->assertStatus(200);
         $response = $this->actingAs($this->user)
             ->put(route('answers.store', ['question' => $this->question->id]), $this->answerData);
         $response->assertStatus(302);
-        $response->assertRedirect($this->question_show_url);
+        $response->assertRedirect(route('questions.show', ['question' => $this->question]));
         $response->assertSessionHasNoErrors();
         $this->assertDatabaseHas('answers', [
             'body' => 'テストデータ'
         ]);
-        $response = $this->get($this->question_show_url)
+        $response = $this->get(route('questions.show', ['question' => $this->question]))
             ->assertStatus(200);
         $response->assertSeeText('回答');
         $response->assertSeeText($this->answerData['body']);
@@ -52,17 +50,7 @@ class AnswerControllerTest extends TestCase
         $update_url = route('answers.update', ['answer' => $this->answer]);
         $response = $this->put($update_url, $this->answerData);
         $response->assertStatus(302)
-            ->assertRedirect($this->question_show_url);
-        $this->assertDatabaseHas('answers', ['body' => 'テストデータ']);
-    }
-
-    public function testDelete()
-    {
-        $response = $this->actingAs($this->user)
-            ->from( $this->question_show_url)
-            ->delete(route('answers.destroy', ['answer' => $this->answer]));
-        $response->assertStatus(302)
-            ->assertRedirect($this->question_show_url);
-        $this->assertDatabaseMissing('answers', ['id' => $this->answer->id]);
+            ->assertRedirect(route(''));
+        $this->assertDatabaseHas('answers', ['title' => 'テストデータ']);
     }
 }

@@ -15,7 +15,7 @@ class QuestionControllerTest extends TestCase
     {
         parent::setUp();
         $this->user = factory(User::class)->create();
-        $this->question = factory(Question::class)->create();
+        $this->question = factory(Question::class)->create(['user_id' => $this->user->id]);
         $this->questionData =  [
             'title' => 'テストデータ',
             'body' => 'テストデータ',

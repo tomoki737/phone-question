@@ -35,7 +35,7 @@ class QuestionTest extends TestCase
 
     public function testIsLikedByAnotherUser() {
         $this->question->likes()->attach($this->user);
-        $result = $this->question->isLikedBy($this->user);
-        $this->assertTrue($result);
+        $result = $this->question->isLikedBy($this->anotherUser);
+        $this->assertFalse($result);
     }
 }
