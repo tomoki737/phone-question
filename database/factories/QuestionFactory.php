@@ -1,6 +1,5 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Question;
 use Faker\Generator as Faker;
@@ -11,8 +10,8 @@ $factory->define(Question::class, function (Faker $faker) {
         'title' => $faker->text(50),
         'body' => $faker->text(255),
         'solution' => $faker->boolean(),
-        'user_id' => function () {
-            return factory(User::class);
+        'user_id' => function() {
+            return factory(User::class)->create()->id;
         },
     ];
 });

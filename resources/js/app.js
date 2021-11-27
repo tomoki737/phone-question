@@ -1,10 +1,10 @@
 import './bootstrap'
 import Vue from 'vue'
-import Sample from './components/Sample'
+import QuestionLike from './components/QuestionLike'
 
 const app = new Vue({
   el: '#app',
   components: {
-    Sample,
+    QuestionLike,
   }
 })

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Http\Request;
 use App\Http\Requests\QuestionRequest as QuestionRequest;
 use App\Question;
 class QuestionController extends Controller
@@ -45,5 +45,24 @@ class QuestionController extends Controller
     {
         $answers = $question->answer->sortByDesc('created_at');
         return view('questions.show', ['question' => $question, 'answers' => $answers]);
+    }
+
+    public function like(Request $request, Question $question)
+    {
+        $question->likes()->detach($request->user()->id);
+        $question->likes()->attach($request->user()->id);
+        return [
+            'id' => $question->id,
+            'countLikes' => $question->count_likes,
+        ];
+    }
+
+    public function unlike( Request $request, Question $question)
+    {
+        $question->likes()->detach($request->user()->id);
+        return [
+            'id' => $question->id,
+            'countLikes' => $question->count_likes,
+        ];
     }
 }

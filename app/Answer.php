@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Answer extends Model
 {
     protected $fillable = [
-        'body'
+        'body',
     ];
     public function question(): BelongsTo
     {
