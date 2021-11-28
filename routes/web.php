@@ -16,5 +16,5 @@ Route::resource('/answers', 'AnswerController', ['except' => ['index', 'show', '
 Route::prefix('answers')->name('answers.')->group(function () {
     Route::put('question/{question}', 'AnswerController@store')->name('store')->middleware('auth');
     Route::put('{answer}/comment', 'AnswerController@comment')->name('comment')->middleware('auth');
-    Route::delete('{answer}/comment', 'AnswerController@uncomment')->name('uncomment')->middleware('auth');
+    Route::delete('comment/{comment}', 'AnswerController@uncomment')->name('uncomment')->middleware('auth');
 });

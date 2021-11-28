@@ -25,10 +25,12 @@
             </div>
         </div>
     </div>
-    <div class="card mx-auto px-3 py-2" style="max-width: 50rem;">
-        <h5 class="col-sm-12 mb-3">回答 {{($question->count_answers)}}</h5>
-        @foreach($answers as $answer)
+    @foreach($answers as $answer)
+    <div class="card mx-auto px-3 py-2 mb-2" style="max-width: 50rem;">
         <div class="row">
+            @if($loop->first)
+            <h5 class="col-sm-12 mb-3">回答 {{($question->count_answers)}} 件</h5>
+            @endif
             <div class="col-sm-1">
                 <i class="far fa-user-circle fa-3x"></i>
             </div>
@@ -37,7 +39,7 @@
                 <small>{{$answer->created_at}}</small>
             </div>
             @if(Auth::id() === $answer->user_id)
-            @include('modal', ['questionModal' => false, 'answerModal' => true])
+            @include('modal', ['questionModal' => false, 'answerModal' => true, 'commentModal' => 'false'])
             @endif
             <div class="col-sm-12 mt-3">
                 <p class=" mt-2 border-bottom pb-2">{{$answer->body}}</p>
@@ -46,16 +48,18 @@
             <div class="col-sm-1">
                 <i class="far fa-user-circle fa-2x pe-0"></i>
             </div>
-            <div class="col-sm-11">
+            <div class="col-sm-10 p-0">
                 <p class="my-auto">{{$comment->user->name}}さん</p>
             </div>
+            @include('modal', ['questionModal' => false, 'answerModal' => false, 'commentModal' => 'true'])
             <div class="col-sm-12 mt-2">
                 <div class="border-start ms-3 ps-2 border-dark">
-                <small>{{$comment->created_at}}</small>
-                <p>{{$comment->body}}</p>
+                    <small>{{$comment->created_at}}</small>
+                    <p>{{$comment->body}}</p>
                 </div>
             </div>
             @endforeach
+            @auth
             <form action="{{ route('answers.comment', ['answer' => $answer->id]) }}" method="POST">
                 @method('put')
                 <div class="col-sm-12">
@@ -65,10 +69,12 @@
                     <button class="btn btn-primary mb-3" type="hidden">コメントを書く</button>
                 </div>
             </form>
+            @endauth
         </div>
-        @endforeach
     </div>
 </div>
+@endforeach
+@auth
 <form action="{{ route('answers.store', ['question' => $question->id]) }}" method="POST">
     @method('put')
 
@@ -79,3 +85,4 @@
 </form>
 </div>
 @endsection
+@endauth

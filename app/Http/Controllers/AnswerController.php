@@ -42,4 +42,9 @@ class AnswerController extends Controller
         $comment->save();
         return back();
     }
+    public function uncomment(Comment $comment)
+    {
+        $comment->delete();
+        return back();
+    }
 }
