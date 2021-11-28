@@ -31,4 +31,12 @@ class AnswerController extends Controller
         $answer->delete();
         return back();
     }
+
+    public function comment(CommentRequest $request, Comment $comment, $answer_id)
+    {
+        $comment->fill($request->all());
+        $comment->user_id = $request->user()->id;
+        $comment->answer_id = $answer_id;
+        $comment->save();
+    }
 }
