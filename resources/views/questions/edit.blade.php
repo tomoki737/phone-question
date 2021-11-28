@@ -9,7 +9,7 @@
         </div>
         <form action="{{route('questions.update',['question' => $question])}}" method="post">
             @method('PATCH')
-            @include('questions.form')
+            @include('questions.form', ['answerForm' => true, 'commentForm' => false])
                 @csrf
             <div class="d-grid col-sm-6 mx-auto mt-3">
                 <button class="btn btn-primary" type="submit">更新</button>
