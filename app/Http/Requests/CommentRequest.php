@@ -4,9 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AnswerRequest extends FormRequest
+class CommentRequest extends FormRequest
 {
-    
+
     public function authorize()
     {
         return true;

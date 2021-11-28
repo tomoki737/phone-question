@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Answer;
-use App\Question;
+use App\Comment;
 use App\Http\Requests\AnswerRequest as AnswerRequest;
+use App\Http\Requests\CommentRequest as CommentRequest;
+
 class AnswerController extends Controller
 {
     public function store(AnswerRequest $request, $question,  Answer $answer)
@@ -38,5 +40,6 @@ class AnswerController extends Controller
         $comment->user_id = $request->user()->id;
         $comment->answer_id = $answer_id;
         $comment->save();
+        return back();
     }
 }
