@@ -1,12 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Http\Requests\QuestionRequest as QuestionRequest;
 use App\Question;
+
 class QuestionController extends Controller
 {
-    public function __constract(){
+    public function __constract()
+    {
         $this->authorizeResource(Question::class, 'question');
     }
 
@@ -57,7 +60,7 @@ class QuestionController extends Controller
         ];
     }
 
-    public function unlike( Request $request, Question $question)
+    public function unlike(Request $request, Question $question)
     {
         $question->likes()->detach($request->user()->id);
         return [

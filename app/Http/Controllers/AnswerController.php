@@ -6,9 +6,14 @@ use App\Answer;
 use App\Comment;
 use App\Http\Requests\AnswerRequest as AnswerRequest;
 use App\Http\Requests\CommentRequest as CommentRequest;
-
 class AnswerController extends Controller
 {
+    public function __constract()
+    {
+        $this->authorizeResource(Answer::class, 'answer');
+        $this->authorizeResource(Comment::class, 'comment');
+    }
+
     public function store(AnswerRequest $request, $question,  Answer $answer)
     {
         $answer->fill($request->all());
