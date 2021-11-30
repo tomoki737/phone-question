@@ -49,7 +49,7 @@
             <div class="col-sm-12 mt-3">
                 <p class=" mt-2 pb-2">{{$answer->body}}</p>
             </div>
-            @if(!$question->best_answer)
+            @if(!$question->best_answer && Auth::user()->id === $question->user->id)
             <div class="col-sm-12">
                 <form action="{{ route('questions.best_answer', ['question' => $question,'answer' => $answer]) }}" method="post">
                     @csrf
