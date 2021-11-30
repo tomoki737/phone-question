@@ -47,7 +47,7 @@ class QuestionController extends Controller
 
     public function show(Question $question)
     {
-        $answers = $question->answer->sortByDesc('created_at');
+        $answers = $question->answer->sortByDesc('best_answer');
         return view('questions.show', ['question' => $question, 'answers' => $answers]);
     }
 
@@ -70,8 +70,9 @@ class QuestionController extends Controller
         ];
     }
 
-    public function best_answer( Question $question, $answer_id) {
+    public function best_answer(Question $question, $answer_id) {
         $question->best_answer = $answer_id;
+        $question->save();
         return back();
     }
 }
