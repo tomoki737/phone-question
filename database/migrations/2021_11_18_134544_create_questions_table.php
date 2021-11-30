@@ -18,6 +18,7 @@ class CreateQuestionsTable extends Migration
             $table->text('title');
             $table->text('body');
             $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('best_answer')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

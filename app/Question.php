@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use phpDocumentor\Reflection\Types\Boolean;
 
 class Question extends Model
@@ -47,4 +48,8 @@ class Question extends Model
     {
         return $this->likes->count();
     }
+
+    // public function best_answer() : HasOne {
+    //     return $this->hasOne('App\')
+    // }
 }

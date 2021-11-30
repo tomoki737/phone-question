@@ -22,6 +22,7 @@ class AnswerController extends Controller
         $answer->save();
         return back();
     }
+    
     public function update(AnswerRequest $request, Answer $answer)
     {
         $answer->fill($request->all());

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\QuestionRequest as QuestionRequest;
 use App\Question;
+use Illuminate\Support\Facades\DB;
 
 class QuestionController extends Controller
 {
@@ -67,5 +68,10 @@ class QuestionController extends Controller
             'id' => $question->id,
             'countLikes' => $question->count_likes,
         ];
+    }
+
+    public function best_answer( Question $question, $answer_id) {
+        $question->best_answer = $answer_id;
+        return back();
     }
 }
