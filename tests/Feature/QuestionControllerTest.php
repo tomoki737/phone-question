@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Question;
 use App\User;
+use App\Answer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -16,6 +17,8 @@ class QuestionControllerTest extends TestCase
         parent::setUp();
         $this->user = factory(User::class)->create();
         $this->question = factory(Question::class)->create(['user_id' => $this->user->id]);
+        $this->answer = factory(Answer::class)->create(['user_id' => $this->user->id, 'question_id' => $this->question->id]);
+        $this->question_show_url = route('questions.show', ['question' => $this->question]);
         $this->questionData =  [
             'title' => 'テストデータ',
             'body' => 'テストデータ',
@@ -89,5 +92,14 @@ class QuestionControllerTest extends TestCase
         $response->assertStatus(302)
             ->assertRedirect(route('home'));
         $this->assertDatabaseMissing('questions', ['id' => $this->question->id]);
+    }
+
+    public function best_answer()
+    {
+        $response = $this->actingAs($this->user)
+        ->put( route('questions.best_answer', ['question' => $this->question,'answer' => $this->answer]));
+        $response->assertStatus(302)
+            ->assertRedirect(route($this->question_show_url));
+            $this->assertDatabaseHas('questions', ['best_answer' => $this->answer->id]);
     }
 }
