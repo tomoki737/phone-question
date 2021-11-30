@@ -9,7 +9,6 @@ $factory->define(Question::class, function (Faker $faker) {
     return [
         'title' => $faker->text(50),
         'body' => $faker->text(255),
-        'solution' => $faker->boolean(),
         'user_id' => function() {
             return factory(User::class)->create()->id;
         },
