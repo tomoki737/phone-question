@@ -8,10 +8,12 @@
     <div class="card mx-auto px-3 py-2 mb-3" style="max-width: 50rem;">
         <div class="row">
             <div class="col-sm-1">
-                <i class="far fa-user-circle fa-3x"></i>
+                <a href="{{route('users.show', ['name' => $question->user->name])}}"><i class="far fa-user-circle fa-3x text-dark"></i></a></p>
             </div>
             <div class="col-sm-11">
-                <p class="m-0">{{$question->user->name}}</p>
+                <a href="{{route('users.show', ['name' => $question->user->name])}}" class=" text-decoration-none">
+                    <p class="m-0 text-dark">{{$question->user->name}}</p>
+                </a>
                 <small>{{$question->created_at}}</small>
             </div>
             <div class="col-sm-12">
@@ -31,16 +33,18 @@
     <div class="card mx-auto px-3 py-2 mb-2" style="max-width: 50rem;">
         <div class="row">
             @if($loop->first)
-        <h5 class="col-sm-12 mb-3 border-bottom pb-2">回答 {{($question->count_answers)}} 件</h5>
-        @endif
+            <h5 class="col-sm-12 mb-3 border-bottom pb-2">回答 {{($question->count_answers)}} 件</h5>
+            @endif
             @if($answer->id === $question->best_answer)
             <h5 class="col-sm-12 mb-3">ベストアンサー</h5>
             @endif
             <div class="col-sm-1">
-                <i class="far fa-user-circle fa-3x"></i>
+                <a href="{{route('users.show', ['name' => $answer->user->name])}}"><i class="far fa-user-circle fa-3x text-dark"></i></a></p>
             </div>
             <div class="col-sm-10">
-                <p class="m-0">{{$answer->user->name}}さん</p>
+                <a href="{{route('users.show', ['name' => $answer->user->name])}}" class=" text-decoration-none">
+                    <p class="m-0 text-dark">{{$answer->user->name}}</p>
+                </a>
                 <small>{{$answer->created_at}}</small>
             </div>
             @if(Auth::id() === $answer->user_id)
@@ -53,9 +57,9 @@
             <div class="col-sm-12">
                 <form action="{{ route('questions.best_answer', ['question' => $question,'answer' => $answer]) }}" method="post">
                     @csrf
-                @method('put')
-                <button class="btn btn-danger mb-3" type="hidden">ベストアンサーに選ぶ</button>
-            </form>
+                    @method('put')
+                    <button class="btn btn-danger mb-3" type="hidden">ベストアンサーに選ぶ</button>
+                </form>
             </div>
             @endif
             @foreach($answer->comments as $comment)
@@ -63,7 +67,7 @@
                 <i class="far fa-user-circle fa-2x pe-0"></i>
             </div>
             <div class="col-sm-10 p-0">
-                <p class="my-auto">{{$comment->user->name}}さん</p>
+                <p class="my-auto">{{$comment->user->name}}</p>
             </div>
             @if(Auth::id() === $comment->user_id)
             @include('modal', ['questionModal' => false, 'answerModal' => false, 'commentModal' => 'true'])

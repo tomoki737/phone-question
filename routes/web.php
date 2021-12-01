@@ -15,7 +15,11 @@ Route::prefix('questions')->name('questions.')->group(function () {
 });
 Route::resource('/answers', 'AnswerController', ['except' => ['index', 'show', 'create', 'store']])->middleware('auth');
 Route::prefix('answers')->name('answers.')->group(function () {
-    Route::put('question/{question}', 'AnswerController@store')->name('store')->middleware('auth');
-    Route::put('{answer}/comment', 'AnswerController@comment')->name('comment')->middleware('auth');
-    Route::delete('comment/{comment}/comment', 'AnswerController@uncomment')->name('uncomment')->middleware('auth');
+    Route::put('/question/{question}', 'AnswerController@store')->name('store')->middleware('auth');
+    Route::put('/{answer}/comment', 'AnswerController@comment')->name('comment')->middleware('auth');
+    Route::delete('/comment/{comment}', 'AnswerController@uncomment')->name('uncomment')->middleware('auth');
+});
+
+Route::prefix('users')->name('users.')->group(function () {
+    Route::get('/{name}', 'UserController@show')->name('show');
 });

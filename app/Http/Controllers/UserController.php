@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Question;
+use App\User;
 
 class UserController extends Controller
 {
-    public function index()
+    public function show($name)
     {
-        $questions = Question::all()->sortByDesc('created_at');
-        return view('users.index', ['questions' => $questions]);
+        $user = User::where('name', $name)->first();
+        return view('users.show', ['user' => $user]);
     }
 }

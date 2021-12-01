@@ -8,7 +8,7 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <p class="p-2">ともきさんのページ</p>
+                <p class="p-2">{{$user->name}}さんのページ</p>
                 <div class="col">
                     <div class="d-flex justify-content-center text-center">
                         <i class="far fa-user-circle fa-4x"></i>
@@ -23,9 +23,6 @@
             @include('users.index_good')
         </div>
         <div class="col-sm-12">
-            @foreach($questions as $question)
-            @include('card')
-            @endforeach
         </div>
     </div>
 </div>
