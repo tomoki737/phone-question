@@ -22,7 +22,7 @@
                         <i class="fas fa-user-circle"></i>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{{ route('users.index') }}">マイページ</a></li>
+                        <li><a class="dropdown-item" href="{{ route('users.show', ['name' => Auth::user()->name]) }}">マイページ</a></li>
                         <li>
                             <hr class="dropdown-divider">
                             <button form="logout-button" class="dropdown-item" type="submit">
