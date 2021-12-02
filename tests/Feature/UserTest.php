@@ -23,7 +23,7 @@ class UserTest extends TestCase
     }
 
     public function testIsFollowedByNull() {
-        $result = $this->user->followings()->attach(null);
+        $result = $this->user->isFollowedBy(null);
         $this->assertFalse($result);
     }
 }
