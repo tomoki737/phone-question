@@ -1,1 +1,1 @@
-@include('users.tabs', ['hasAnswer' => false, 'hasGood' => true, 'hasQuestion' => false,])
+@include('users.tabs', ['hasAnswer' => false, 'hasGood' => false, 'hasQuestion' => true,])

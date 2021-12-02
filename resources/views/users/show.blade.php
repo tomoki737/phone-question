@@ -31,6 +31,9 @@
             @include('users.index_good')
         </div>
         <div class="col-sm-12">
+            @foreach($questions as $question)
+            @include('card')
+            @endforeach
         </div>
     </div>
 </div>

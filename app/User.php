@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use phpDocumentor\Reflection\Types\Boolean;
@@ -67,5 +68,10 @@ class User extends Authenticatable
     public function getCountFolloweesAttribute():int
     {
         return $this->followings->count();
+    }
+
+    public function questions(): HasMany
+    {
+        return $this->hasMany('App\Question');
     }
 }
