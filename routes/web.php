@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/un_solve', 'HomeController@un_solve')->name('un_solve');
 Route::get('/users', 'UserController@index')->name('users.index');
 Route::resource('/questions', 'QuestionController', ['except' => ['index', 'show']])->middleware('auth');
 Route::resource('/questions', 'QuestionController')->only(['show']);
@@ -29,4 +30,5 @@ Route::prefix('users')->name('users.')->group(function () {
         Route::delete('/{name}/follow', 'UserController@unfollow')->name('unfollow');
     });
 });
+Route::get('guest', 'Auth\LoginController@guestLogin')->name('login.guest');
 

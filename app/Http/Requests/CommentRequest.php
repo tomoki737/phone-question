@@ -22,7 +22,7 @@ class CommentRequest extends FormRequest
     public function attributes()
     {
         return [
-            'body' => '本文',
+            'body' => 'コメント',
         ];
     }
 }

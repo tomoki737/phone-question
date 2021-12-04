@@ -6,7 +6,7 @@
 @include('nav')
 <div class="container" style="max-width: 800px;">
     <div class="row">
-        @include('tabs', ['hasSolve' => true, 'hasUnSolve' => false])
+        @include('tabs', ['hasSolve' => false, 'hasUnSolve' => true])
         @foreach($questions as $question)
         @include('card')
         @endforeach

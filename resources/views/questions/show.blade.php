@@ -97,11 +97,11 @@
 @auth
 <form action="{{ route('answers.store', ['question' => $question->id]) }}" method="POST">
     @method('put')
-    @include('answers.answer_form')
+    @include('answers.answer_form',['hasStore' => true])
     <div class="d-grid col-sm-6 mt-2 mx-auto">
         <button class="btn btn-primary" type="hidden">回答する</button>
     </div>
 </form>
 </div>
-@endsection
 @endauth
+@endsection
