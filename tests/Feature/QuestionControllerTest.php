@@ -63,12 +63,12 @@ class QuestionControllerTest extends TestCase
             'title' => 'テストデータ',
         ]);
 
-        $response = $this->get(route('home'))
+        $response = $this->get(route('un_solve'))
             ->assertStatus(200);
         $response->assertSeeText('一覧');
-        $response = $this->get(route('home'))
+        $response = $this->get(route('un_solve'))
         ->assertStatus(200);
-        $response->assertViewIs('home');
+        $response->assertViewIs('un_solve');
         $response->assertSeeText($this->questionData['title']);
     }
 
