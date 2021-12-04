@@ -7,7 +7,7 @@
 <div class="container mt-4" style="max-width: 800px;">
     @include('users.user')
     <div class="row">
-        @include('users.tabs',['hasQuestion' => true, 'hasAnwer' => false, 'hasLike' => false])
+    @include('users.tabs',['hasQuestion' => false, 'hasAnwer' => false, 'hasLike' => true])
         <div class="col-sm-12">
             @foreach($questions as $question)
             @include('card')
