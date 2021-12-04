@@ -31,4 +31,4 @@ Route::prefix('users')->name('users.')->group(function () {
     });
 });
 Route::get('guest', 'Auth\LoginController@guestLogin')->name('login.guest');
-
+Route::put('/search', 'QuestionController@search')->name('questions.search');

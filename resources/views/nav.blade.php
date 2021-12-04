@@ -35,12 +35,14 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    </li>
-                    @endauth
-                </ul>
-                <a class="nav-link  btn btn-primary me-2" aria-current="page" href="{{route('questions.create')}}" role="button" style="max-width: 150px;">質問する</a>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                </li>
+                @endauth
+            </ul>
+            <a class="nav-link  btn btn-primary me-2" aria-current="page" href="{{route('questions.create')}}" role="button" style="max-width: 150px;">質問する</a>
+            <form class="d-flex" action="{{route('questions.search')}}" method="post">
+                @csrf
+                @method('put')
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="body">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>
