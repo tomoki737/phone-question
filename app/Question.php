@@ -22,14 +22,14 @@ class Question extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function answer(): HasMany
+    public function answers(): HasMany
     {
         return $this->hasMany('App\Answer');
     }
 
     public function getCountAnswersAttribute():int
     {
-        return $this->answer->count();
+        return $this->answers->count();
     }
 
     public function likes(): BelongsToMany
@@ -48,8 +48,4 @@ class Question extends Model
     {
         return $this->likes->count();
     }
-
-    // public function best_answer() : HasOne {
-    //     return $this->hasOne('App\')
-    // }
 }

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use phpDocumentor\Reflection\Types\Boolean;
@@ -61,11 +62,26 @@ class User extends Authenticatable
 
     public function getCountFollowingsAttribute():int
     {
+        return $this->followings->count();
+    }
+
+    public function getCountFollowersAttribute():int
+    {
         return $this->followers->count();
     }
 
-    public function getCountFolloweesAttribute():int
+    public function questions(): HasMany
     {
-        return $this->followings->count();
+        return $this->hasMany('App\Question');
+    }
+
+    public function likes(): belongsToMany
+    {
+        return $this->belongsToMany('App\Question', 'likes')->withTimestamps();
+    }
+
+    public function answers(): HasMany
+    {
+        return $this->hasMany('App\Answer');
     }
 }
