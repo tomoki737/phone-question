@@ -62,16 +62,26 @@ class User extends Authenticatable
 
     public function getCountFollowingsAttribute():int
     {
-        return $this->followers->count();
+        return $this->followings->count();
     }
 
-    public function getCountFolloweesAttribute():int
+    public function getCountFollowersAttribute():int
     {
-        return $this->followings->count();
+        return $this->followers->count();
     }
 
     public function questions(): HasMany
     {
         return $this->hasMany('App\Question');
+    }
+
+    public function likes(): belongsToMany
+    {
+        return $this->belongsToMany('App\Question', 'likes')->withTimestamps();
+    }
+
+    public function answers(): HasMany
+    {
+        return $this->hasMany('App\Answer');
     }
 }

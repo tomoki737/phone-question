@@ -57,8 +57,7 @@ class QuestionControllerTest extends TestCase
 
         $response = $this->post(route('questions.store'), $this->questionData);
         $response->assertSessionHasNoErrors();
-        $response->assertStatus(302)
-            ->assertRedirect(route('home'));
+        $response->assertStatus(302);
 
         $this->assertDatabaseHas('questions', [
             'title' => 'テストデータ',
@@ -80,8 +79,7 @@ class QuestionControllerTest extends TestCase
 
         $update_url = route('questions.update', ['question' => $this->question]);
         $response = $this->put($update_url, $this->questionData);
-        $response->assertStatus(302)
-            ->assertRedirect(route('home'));
+        $response->assertStatus(302);
         $this->assertDatabaseHas('questions', ['title' => 'テストデータ']);
     }
 

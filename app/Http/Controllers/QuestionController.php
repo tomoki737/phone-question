@@ -24,7 +24,7 @@ class QuestionController extends Controller
         $question->fill($request->all());
         $question->user_id = $request->user()->id;
         $question->save();
-        return redirect(route('home'));
+        return redirect(route('questions.show', ['question' => $question]));
     }
 
 
@@ -36,7 +36,7 @@ class QuestionController extends Controller
     public function update(QuestionRequest $request, Question $question)
     {
         $question->fill($request->all())->save();
-        return redirect(route('home'));
+        return redirect(route('questions.show', ['question' => $question]));
     }
 
     public function destroy(Question $question)
@@ -47,7 +47,7 @@ class QuestionController extends Controller
 
     public function show(Question $question)
     {
-        $answers = $question->answer->sortByDesc('best_answer');
+        $answers = $question->answers->sortByDesc('best_answer');
         return view('questions.show', ['question' => $question, 'answers' => $answers]);
     }
 
