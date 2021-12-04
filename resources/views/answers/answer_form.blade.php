@@ -4,6 +4,6 @@
         <div class="card-header">
             あなたの回答
         </div>
-        <textarea name="body" required class="form-control" rows="7" placeholder="回答を入力してください">{{ $answer->body ?? old('body') }}</textarea>
+        <textarea name="body" required class="form-control" rows="7" placeholder="回答を入力してください">{{ $hasStore ? old('body') :$answer->body  }}</textarea>
     </div>
 </div>
