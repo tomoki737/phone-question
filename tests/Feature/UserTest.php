@@ -36,6 +36,5 @@ class UserTest extends TestCase
         $response = $this->get(route('login.guest'));
         $response->assertStatus(302)->assertRedirect('/');
         $response = $this->get('/')->assertStatus(200);
-        $response->assertDontSeeText('新規登録');
     }
 }
