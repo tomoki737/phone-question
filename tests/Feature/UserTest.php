@@ -31,4 +31,10 @@ class UserTest extends TestCase
         $result = $this->user->isFollowedBy(null);
         $this->assertFalse($result);
     }
+
+    public function testGuestLogin() {
+        $response = $this->get(route('login.guest'));
+        $response->assertStatus(302)->assertRedirect('/');
+        $response = $this->get('/')->assertStatus(200);
+    }
 }
