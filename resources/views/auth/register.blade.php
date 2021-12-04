@@ -61,7 +61,7 @@
                             <span>ユーザー登録せずに</span>
                             <span>機能を試したい方はこちら</span>
                         </p>
-                        <form action="{{ route('login') }}" method="get">
+                        <form action="{{ route('login.guest') }}" method="get">
                             <div class="d-grid gap-2 col-12 mx-auto">
                                 <button type="hidden" class="btn btn-outline-danger mt-2">ゲストユーザーログイン</button>
                             </div>
