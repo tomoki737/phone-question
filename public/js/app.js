@@ -32727,8 +32727,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_QuestionLike__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/QuestionLike */ "./resources/js/components/QuestionLike.vue");
 /* harmony import */ var _components_FollowButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/FollowButton */ "./resources/js/components/FollowButton.vue");
-/* harmony import */ var _components_QuestionSearch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/QuestionSearch */ "./resources/js/components/QuestionSearch.vue");
-
 
 
 
@@ -32737,8 +32735,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
   el: '#app',
   components: {
     QuestionLike: _components_QuestionLike__WEBPACK_IMPORTED_MODULE_2__["default"],
-    FollowButton: _components_FollowButton__WEBPACK_IMPORTED_MODULE_3__["default"],
-    QuestionSearch: _components_QuestionSearch__WEBPACK_IMPORTED_MODULE_4__["default"]
+    FollowButton: _components_FollowButton__WEBPACK_IMPORTED_MODULE_3__["default"]
   }
 });
 
@@ -32911,17 +32908,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_QuestionLike_vue_vue_type_template_id_78184bf0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
-
-/***/ }),
-
-/***/ "./resources/js/components/QuestionSearch.vue":
-/*!****************************************************!*\
-  !*** ./resources/js/components/QuestionSearch.vue ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed (from ./node_modules/vue-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/work/backend/resources/js/components/QuestionSearch.vue'");
 
 /***/ }),
 
