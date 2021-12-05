@@ -108,6 +108,6 @@ class QuestionControllerTest extends TestCase
         $response = $this->put(route('questions.search', ['content' => $content]));
         $response->assertStatus(200)
             ->assertViewIs('questions.search');
-        $response->assertSeeText($content);
+        $response->assertSeeText('検索画面');
     }
 }
