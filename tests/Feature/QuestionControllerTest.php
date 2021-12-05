@@ -95,6 +95,7 @@ class QuestionControllerTest extends TestCase
     public function testBestAnswer()
     {
         $response = $this->actingAs($this->user)
+            ->from($this->question_show_url)
             ->put(route('questions.best_answer', ['question' => $this->question, 'answer' => $this->answer]));
         $response->assertStatus(302)
             ->assertRedirect(route($this->question_show_url));
@@ -106,7 +107,7 @@ class QuestionControllerTest extends TestCase
         $content = $this->question->body;
         $response = $this->put(route('questions.search', ['content' => $content]));
         $response->assertStatus(200)
-        ->assertViewIs('questions.search');
-        $response->assertSeeText($this->question->body);
+            ->assertViewIs('questions.search');
+        $response->assertSeeText($content);
     }
 }
