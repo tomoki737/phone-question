@@ -2,7 +2,7 @@
     <div class="row mb-2">
         <div class="col-sm-11">
             <a href="{{ route('questions.show', ['question' => $question]) }}" class="text-decoration-none">
-                <h5>{{ Str::limit($question->title,80)}}</h5>
+                <h5>{{ Str::limit($question->title,50)}}</h5>
             </a>
             @foreach($question->answers as $answer)
             @if($question->best_answer === $answer->id)
