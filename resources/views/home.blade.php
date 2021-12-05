@@ -10,6 +10,9 @@
         @foreach($questions as $question)
         @include('card')
         @endforeach
+        <div class="d-flex justify-content-center mt-2">
+            {{ $questions->links() }}
+        </div>
     </div>
 </div>
 @endsection
