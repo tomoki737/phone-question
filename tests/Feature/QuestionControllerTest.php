@@ -98,7 +98,7 @@ class QuestionControllerTest extends TestCase
             ->from($this->question_show_url)
             ->put(route('questions.best_answer', ['question' => $this->question, 'answer' => $this->answer]));
         $response->assertStatus(302)
-            ->assertRedirect(route($this->question_show_url));
+            ->assertRedirect($this->question_show_url);
         $this->assertDatabaseHas('questions', ['best_answer' => $this->answer->id]);
     }
 
