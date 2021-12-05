@@ -5,13 +5,17 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/un_solve', 'HomeController@un_solve')->name('un_solve');
 Route::get('/users', 'UserController@index')->name('users.index');
+Route::get('guest', 'Auth\LoginController@guestLogin')->name('login.guest');
+
 Route::resource('/questions', 'QuestionController', ['except' => ['index', 'show']])->middleware('auth');
 Route::resource('/questions', 'QuestionController')->only(['show']);
+Route::put('/search', 'QuestionController@search')->name('questions.search');
 Route::prefix('questions')->name('questions.')->group(function () {
     Route::put('/{question}/like', 'QuestionController@like')->name('like')->middleware('auth');
     Route::delete('/{question}/like', 'QuestionController@unlike')->name('unlike')->middleware('auth');
     Route::put('/{question}/answers/{answer}', 'QuestionController@best_answer')->name('best_answer')->middleware('auth');
 });
+
 Route::resource('/answers', 'AnswerController', ['except' => ['index', 'show', 'create', 'store']])->middleware('auth');
 Route::prefix('answers')->name('answers.')->group(function () {
     Route::put('/question/{question}', 'AnswerController@store')->name('store')->middleware('auth');
@@ -30,5 +34,5 @@ Route::prefix('users')->name('users.')->group(function () {
         Route::delete('/{name}/follow', 'UserController@unfollow')->name('unfollow');
     });
 });
-Route::get('guest', 'Auth\LoginController@guestLogin')->name('login.guest');
+
 

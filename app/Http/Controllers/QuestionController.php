@@ -75,4 +75,13 @@ class QuestionController extends Controller
         $question->save();
         return back();
     }
+    public function search(Request $request) {
+        $query = Question::query()->orderBy('id', 'asc');
+        $content = $request->content;
+        if(isset($request->content)){
+            $query->where('body', 'like', "%" . $request->content . "%");
+        }
+        $questions = $query->get();
+        return view('questions.search',['questions' => $questions, 'content' => $content]);
+    }
 }
