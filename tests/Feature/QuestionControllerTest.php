@@ -67,7 +67,7 @@ class QuestionControllerTest extends TestCase
             ->assertStatus(200);
         $response->assertSeeText('一覧');
         $response = $this->get(route('un_solve'))
-        ->assertStatus(200);
+            ->assertStatus(200);
         $response->assertViewIs('un_solve');
         $response->assertSeeText($this->questionData['title']);
     }
@@ -92,12 +92,22 @@ class QuestionControllerTest extends TestCase
         $this->assertDatabaseMissing('questions', ['id' => $this->question->id]);
     }
 
-    public function best_answer()
+    public function testBestAnswer()
     {
         $response = $this->actingAs($this->user)
-        ->put( route('questions.best_answer', ['question' => $this->question,'answer' => $this->answer]));
+            ->from($this->question_show_url)
+            ->put(route('questions.best_answer', ['question' => $this->question, 'answer' => $this->answer]));
         $response->assertStatus(302)
-            ->assertRedirect(route($this->question_show_url));
-            $this->assertDatabaseHas('questions', ['best_answer' => $this->answer->id]);
+            ->assertRedirect($this->question_show_url);
+        $this->assertDatabaseHas('questions', ['best_answer' => $this->answer->id]);
+    }
+
+    public function testSearch()
+    {
+        $content = $this->question->body;
+        $response = $this->put(route('questions.search', ['content' => $content]));
+        $response->assertStatus(200)
+            ->assertViewIs('questions.search');
+        $response->assertSeeText('検索画面');
     }
 }
