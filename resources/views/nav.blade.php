@@ -5,7 +5,15 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav ms-auto">
+                <form class="d-flex align-items-end" action="{{route('questions.search')}}" method="post">
+                    @csrf
+                    @method('put')
+                    <div class="input-group ">
+                        <input type="search" class="form-control" placeholder="質問を検索" aria-label="Search" aria-describedby="button-addon2" name="content" value="{{$content ?? old('content')}}">
+                        <button class="btn btn-outline-secondary" type="hidden" id="button-addon2"><i class="fas fa-search"></i></button>
+                    </div>
+                </form>
                 @guest
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{route('login')}}">ログイン</a>
@@ -17,11 +25,17 @@
                 </li>
                 @endguest
                 @auth
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-user-circle"></i>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li class="nav-item">
+                    <div class="d-grid gap-2 d-md-block  mt-sm-2 ms-3">
+                        <a class="nav-link  btn btn-primary text-white" aria-current="page" href="{{route('questions.create')}}" role="button">質問する</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown me-2">
+                    <div class="btn-group">
+                        <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                        <i class="far fa-user-circle fa-2x"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-lg-end">
                         <li><a class="dropdown-item" href="{{ route('users.show', ['name' => Auth::user()->name]) }}">マイページ</a></li>
                         <li>
                             <hr class="dropdown-divider">
@@ -32,19 +46,11 @@
                                 @csrf
                             </form>
                         </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
+                        </ul>
+                    </div>
                 </li>
                 @endauth
             </ul>
-            <a class="nav-link  btn btn-primary me-2" aria-current="page" href="{{route('questions.create')}}" role="button" style="max-width: 150px;">質問する</a>
-            <form class="d-flex" action="{{route('questions.search')}}" method="post">
-                @csrf
-                @method('put')
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="body">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
         </div>
     </div>
 </nav>

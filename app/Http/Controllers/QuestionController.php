@@ -77,10 +77,11 @@ class QuestionController extends Controller
     }
     public function search(Request $request) {
         $query = Question::query()->orderBy('id', 'asc');
-        if(isset($request->body)){
-            $query->where('body', 'like', "%" . $request->body . "%");
+        $content = $request->content;
+        if(isset($request->content)){
+            $query->where('body', 'like', "%" . $request->content . "%");
         }
         $questions = $query->get();
-        return view('questions.search',['questions' => $questions]);
+        return view('questions.search',['questions' => $questions, 'content' => $content]);
     }
 }
