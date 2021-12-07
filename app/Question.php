@@ -49,7 +49,7 @@ class Question extends Model
         return $this->likes->count();
     }
 
-    public function images():HasOne
+    public function image():HasOne
     {
         return $this->hasOne('App\QuestionImage');
     }
