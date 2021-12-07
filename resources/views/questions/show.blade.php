@@ -22,9 +22,9 @@
             <div class="col-sm-12">
                 <p class=" mt-2">{{$question->body}}</p>
             </div>
-            @if($question->image->image_path)
+            @if($question->image->image_path ?? '')
             <div class="col-sm-12">
-                <img src="{{ question->image->image_path }}" alt="">
+                <img src="{{ $question->image->image_path}}" alt="">
             </div>
             @endif
             <div class="col-sm-12">
