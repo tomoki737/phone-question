@@ -8,7 +8,3 @@
     <label>本文</label>
     <textarea name="body" required class="form-control" rows="10" placeholder="本文を入力してください">{{ $question->body ?? old('body') }}</textarea>
 </div>
-<div class="mt-3">
-  <label for="formFile" class="form-label">画像を選択</label>
-  <input class="form-control" type="file" name="image">
-</div>
