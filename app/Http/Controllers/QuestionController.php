@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\QuestionRequest as QuestionRequest;
 use App\Question;
+use App\QuestionImage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class QuestionController extends Controller
 {
@@ -24,6 +26,13 @@ class QuestionController extends Controller
         $question->fill($request->all());
         $question->user_id = $request->user()->id;
         $question->save();
+        $image = $request->image;
+        if($image) {
+        $question_image = new QuestionImage;
+        $path = Storage::disk('s3')->putFile('myprefix', $image, 'public');
+        $question_image->imgage_path = Storage::disk('s3')->url($path);
+        $question_image->question_id = $question->id;
+    }
         return redirect(route('questions.show', ['question' => $question]));
     }
 

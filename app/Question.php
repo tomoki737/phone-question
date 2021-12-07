@@ -48,4 +48,9 @@ class Question extends Model
     {
         return $this->likes->count();
     }
+
+    public function images():HasOne
+    {
+        return $this->hasOne('App\QuestionImage');
+    }
 }

@@ -38,7 +38,6 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" name="remember" id="remember" value="on">
                         <div class="card-body text-center">
                             <div class="d-grid gap-2 col-12 mx-auto">
                                 <button class="btn btn-primary" type="hidden">登録</button>
@@ -63,7 +62,6 @@
                             <span>機能を試したい方はこちら</span>
                         </p>
                         <form action="{{ route('login.guest') }}" method="get">
-                        <input type="hidden" name="remember" id="remember" value="on">
                             <div class="d-grid gap-2 col-12 mx-auto">
                                 <button type="hidden" class="btn btn-outline-danger mt-2">ゲストユーザーログイン</button>
                             </div>

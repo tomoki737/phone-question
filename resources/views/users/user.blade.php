@@ -3,8 +3,8 @@
         <div class="row">
             <p class="p-2">{{$user->name}}さんのページ</p>
             <div class="col-sm ps-sm-4">
-                <i class="far fa-user-circle fa-4x"></i>
-                <p class="ps-2">{{$user->name}}</p>
+                <i class="far fa-user-circle fa-4x  ms-2"></i>
+                <p>{{$user->name}}</p>
             </div>
             @if(Auth::id() !== $user->id)
             <div class="col-sm text-sm-end">
