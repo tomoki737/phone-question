@@ -26,13 +26,6 @@ class QuestionController extends Controller
         $question->fill($request->all());
         $question->user_id = $request->user()->id;
         $question->save();
-        $image = $request->image;
-        if($image) {
-        $question_image = new QuestionImage;
-        $path = Storage::disk('s3')->putFile('myprefix', $image, 'public');
-        $question_image->imgage_path = Storage::disk('s3')->url($path);
-        $question_image->question_id = $question->id;
-    }
         return redirect(route('questions.show', ['question' => $question]));
     }
 
