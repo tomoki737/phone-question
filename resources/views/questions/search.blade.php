@@ -16,9 +16,7 @@
                     <span>検索しても答えが見つからない方は…</span>
                     <form action="{{route('questions.create')}}" method="get">
                         <div class="d-grid gap-2 col-sm-6 mx-auto mt-3">
-                            <form action="{{route('questions.create')}}" method="get">
-                                <button class="btn btn-primary" type="button">質問する</button>
-                            </button>
+                            <button class="btn btn-primary" type="hidden">質問する</button>
                         </div>
                     </form>
                 </div>

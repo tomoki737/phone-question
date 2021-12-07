@@ -9,10 +9,9 @@
         <div class="border-bottom mt-4">
             <h3>質問投稿</h3>
         </div>
-        
-        <form action="{{route('questions.store')}}" method="post">
+        <form action="{{route('questions.store')}}" method="post"  enctype="multipart/form-data">
             @include('questions.form')
-            <div class="d-grid gap-2 col-6 mx-auto mt-2">
+            <div class="d-grid gap-2 col-6 mx-auto mt-3">
                 <button class="btn btn-primary" type="hidden">投稿</button>
             </div>
         </form>

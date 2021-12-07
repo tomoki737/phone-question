@@ -22,6 +22,11 @@
             <div class="col-sm-12">
                 <p class=" mt-2">{{$question->body}}</p>
             </div>
+            @if($question->image->image_path ?? '')
+            <div class="col-sm-12">
+                <img src="{{ $question->image->image_path}}" alt="">
+            </div>
+            @endif
             <div class="col-sm-12">
                 <question-like :initial-is-liked-by='@json($question->isLikedBy(Auth::user()))' :initial-count-likes='@json($question->count_likes)' :authorized='@json(Auth::check())' endpoint="{{ route('questions.like', ['question' => $question]) }}"></question-like>
             </div>
