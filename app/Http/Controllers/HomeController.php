@@ -8,13 +8,13 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $questions = Question::whereNotNull('best_answer')->paginate(15);
-        return view('home', ['questions' => $questions]);
+        $questions = Question::whereNotNull('best_answer')->with(['user', 'answers'])->get();
+        return ['questions' => $questions];
     }
 
     public function un_solve()
     {
-        $questions = Question::whereNull('best_answer')->paginate(15);
-        return view('un_solve', ['questions' => $questions]);
+        $questions = Question::whereNull('best_answer')->with(['user', 'answers'])->get();
+        return ['questions' => $questions];
     }
 }

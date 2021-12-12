@@ -46,7 +46,6 @@
       this.isLikedBy ? this.unlike() : this.like();
     },
     async like() {
-        console.log('like')
       const response = await axios.put(this.endpoint);
 
       this.isLikedBy = true;
@@ -54,7 +53,6 @@
     },
 
     async unlike() {
-        console.log(this.endpoint);
       const response = await axios.delete(this.endpoint);
       this.isLikedBy = false;
       this.countLikes = response.data.countLikes;

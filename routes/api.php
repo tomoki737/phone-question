@@ -1,17 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-
-
+Route::get('/', 'HomeController@index');
+Route::get('/un_solve', 'HomeController@un_solve');
+Route::resource('/questions', 'QuestionController', ['except' => ['index', 'show', 'create', 'edit']]);
+Route::resource('/questions', 'QuestionController')->only(['show']);

@@ -8,25 +8,26 @@ use App\Question;
 use App\QuestionImage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use SebastianBergmann\Environment\Console;
 
 class QuestionController extends Controller
 {
-    public function __constract()
-    {
-        $this->authorizeResource(Question::class, 'question');
-    }
+    // public function __constract()
+    // {
+    //     $this->authorizeResource(Question::class, 'question');
+    // }
 
     public function create()
     {
         return view('questions.create');
     }
 
-    public function store(QuestionRequest $request, Question $question)
+    public function store(Request $request, Question $question)
     {
         $question->fill($request->all());
-        $question->user_id = $request->user()->id;
+        $question->user_id = 1;
         $question->save();
-        return redirect(route('questions.show', ['question' => $question]));
+        return ['question' => $question];
     }
 
 
@@ -38,20 +39,19 @@ class QuestionController extends Controller
     public function update(QuestionRequest $request, Question $question)
     {
         $question->fill($request->all())->save();
-        return redirect(route('questions.show', ['question' => $question]));
+        return $question;
     }
 
     public function destroy(Question $question)
     {
         $question->delete();
-        return redirect(route('home'));
+        return $question;
     }
 
     public function show(Question $question)
     {
         $answers = $question->answers->sortByDesc('best_answer');
-        if($question)
-        return view('questions.show', ['question' => $question, 'answers' => $answers]);
+        return ['question' => $question, 'answers' => $answers];
     }
 
     public function like(Request $request, Question $question)
