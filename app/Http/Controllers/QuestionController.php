@@ -25,7 +25,7 @@ class QuestionController extends Controller
     public function store(Request $request, Question $question)
     {
         $question->fill($request->all());
-        $question->user_id = 1;
+        $question->user_id = $request->user()->id;
         $question->save();
         return ['question' => $question];
     }

@@ -49,7 +49,7 @@ export default {
       axios
         .post("/api/questions", this.question)
         .then((res) => {
-             this.$router.push({name: 'questions.show'});
+             this.$router.push({name: 'home'});
             })
         .catch((error) => {
           console.error(error);
