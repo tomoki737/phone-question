@@ -33,16 +33,16 @@
                         <button class="btn btn-outline-secondary" type="hidden" id="button-addon2"><i class="fas fa-search"></i></button>
                     </div>
                 </form> -->
-                <li class="nav-item">
-                    <router-link v-bind:to="{name:'login'}">
-                    <a class="nav-link active" aria-current="page">ログイン</a>
-                    </router-link>
-                </li>
-                <li class="nav-item">
-                    <router-link v-bind:to="{name:'register'}">
-                    <a class="nav-link active" aria-current="page">新規登録</a>
-                    </router-link>
-                </li>
+          <li class="nav-item" v-if="!this.authorized">
+            <router-link v-bind:to="{ name: 'login' }">
+              <a class="nav-link active" aria-current="page">ログイン</a>
+            </router-link>
+          </li>
+          <li class="nav-item" v-if="!this.authorized">
+            <router-link v-bind:to="{ name: 'register' }">
+              <a class="nav-link active" aria-current="page">新規登録</a>
+            </router-link>
+          </li>
           <li class="nav-item">
             <div class="d-grid gap-2 d-md-block mt-sm-2 ms-3">
               <router-link v-bind:to="{ name: 'questions.create' }">
@@ -55,26 +55,33 @@
               </router-link>
             </div>
           </li>
-          <!-- <li class="nav-item dropdown me-2">
-                    <div class="btn-group">
-                        <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                        <i class="far fa-user-circle fa-2x"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-lg-end">
-                        <li><a class="dropdown-item" href="{{ route('users.show', ['name' => Auth::user()->name]) }}">マイページ</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                            <button form="logout-button" class="dropdown-item" type="submit">
-                                ログアウト
-                            </button>
-                            <form id="logout-button" method="POST" action="{{ route('logout') }}">
-                                @csrf
-                            </form>
-                        </li>
-                        </ul>
-                    </div>
+          <li class="nav-item dropdown me-2" v-if="this.authorized">
+            <div class="btn-group">
+              <button
+                type="button"
+                class="btn dropdown-toggle"
+                data-bs-toggle="dropdown"
+                data-bs-display="static"
+                aria-expanded="false"
+              >
+                <i class="far fa-user-circle fa-2x"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-lg-end">
+                <li><a class="dropdown-item">マイページ</a></li>
+                <li>
+                  <hr class="dropdown-divider" />
+                  <button
+                    form="logout-button"
+                    class="dropdown-item"
+                    type="hidden"
+                    @click="logout"
+                  >
+                    ログアウト
+                  </button>
                 </li>
-                @endauth -->
+              </ul>
+            </div>
+          </li>
         </ul>
       </div>
     </div>
@@ -82,5 +89,24 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    authorized: {
+      type: Boolean,
+      default: false,
+      },
+    },
+    methods: {
+      logout() {
+        axios
+          .post("logout")
+          .then((res) => {
+            this.$router.push({ name: "home" });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      },
+    },
+};
 </script>
