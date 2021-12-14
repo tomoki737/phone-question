@@ -12,7 +12,7 @@ Route::get('/{any}', function() {
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/un_solve', 'HomeController@un_solve')->name('un_solve');
 Route::get('/users', 'UserController@index')->name('users.index');
-Route::get('guest', 'Auth\LoginController@guestLogin')->name('login.guest');
+Route::get('/guest', 'Auth\LoginController@guestLogin')->name('login.guest');
 
 Route::put('/search', 'QuestionController@search')->name('questions.search');
 Route::resource('/questions', 'QuestionController', ['except' => ['index', 'show']])->middleware('auth');

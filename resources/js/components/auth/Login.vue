@@ -68,7 +68,6 @@ export default {
   },
   methods: {
     login() {
-      axios.get("/sanctum/csrf-cookie").then((res) => {
         axios
           .post("/login", {
             email: this.email,
@@ -81,7 +80,6 @@ export default {
           .catch((error) => {
             this.isError = true;
           });
-      });
     },
   },
 };

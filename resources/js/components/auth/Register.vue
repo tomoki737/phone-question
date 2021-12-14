@@ -6,7 +6,7 @@
         <div class="card-body">
           <div class="mx-auto">
             <div class="card-body">
-      <p v-show="isError">認証に失敗しました。</p>
+              <p v-show="isError">認証に失敗しました。</p>
               <div class="form-group my-3">
                 <label for="name">ユーザー名</label>
                 <div class="col-sm-12 mx-auto mt-2">
@@ -74,11 +74,13 @@
                 <span>アカウントを</span>
                 <span>お持ちの方はこちら</span>
               </p>
-              <div class="d-grid gap-2 col-12 mx-auto">
-                <button type="hidden" class="btn btn-outline-success mt-2">
-                  ログイン
-                </button>
-              </div>
+              <router-link v-bind:to="{ name: 'login' }" class="text-decoration-none ">
+                <div class="d-grid gap-2 col-12 mx-auto">
+                  <button type="hidden" class="btn btn-outline-success mt-2">
+                    ログイン
+                  </button>
+                </div>
+              </router-link>
             </div>
 
             <div class="card-body pt-0 text-center">
@@ -87,7 +89,11 @@
                 <span>機能を試したい方はこちら</span>
               </p>
               <div class="d-grid gap-2 col-12 mx-auto">
-                <button type="hidden" class="btn btn-outline-danger mt-2">
+                <button
+                  type="hidden"
+                  class="btn btn-outline-danger mt-2"
+                  @click="guestLogin"
+                >
                   ゲストユーザーログイン
                 </button>
               </div>
@@ -113,13 +119,22 @@ export default {
     register() {
       axios
         .post("/register", {
-          "name": this.name,
-          "email": this.email,
-          "password": this.password,
-          "password_confirmation": this.password_confirmation,
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          password_confirmation: this.password_confirmation,
         })
         .then((res) => {
-          state.isLogin = true;
+          this.$router.push({ name: "home" });
+        })
+        .catch((error) => {
+          this.isError = true;
+        });
+    },
+    guestLogin() {
+      axios
+        .get("/api/guest")
+        .then((res) => {
           this.$router.push({ name: "home" });
         })
         .catch((error) => {
