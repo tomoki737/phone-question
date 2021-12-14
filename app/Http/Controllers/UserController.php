@@ -64,4 +64,11 @@ class UserController extends Controller
         $request->user()->followings()->detach($user);
         return ['name' => $name];
     }
+
+    public function isLogin(Request $request)
+    {
+        $isLogin = $request->user() ? true : false;
+        return ['isLogin' => $isLogin];
+    }
+
 }

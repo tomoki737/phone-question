@@ -17,13 +17,6 @@
 
 <body class="bg-light">
     <div id="app">
-        @yield('content')
-        @auth
-        <nav-component :authorized='@json(Auth::check())'></nav-component>
-        @endauth
-        @guest
-        <nav-component :authorized='@json(Auth::check())'></nav-component>
-        @endguest
         <router-view></router-view>
     </div>
     <script src="{{ mix('js/app.js') }}"></script>
