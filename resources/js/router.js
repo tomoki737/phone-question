@@ -1,14 +1,12 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import QuestionLike from "./components/QuestionLike";
-import FollowButton from "./components/FollowButton";
-import QuestionShow from "./components/questions/QuestionShow";
-import Home from "./components/questions/Home";
-import QuestionCreate from "./components/questions/QuestionCreate";
-import QuestionEdit from "./components/questions/QuestionEdit";
-import Login from "./components/auth/Login";
-import Register from "./components/auth/Register";
+import QuestionShow from "./questions/QuestionShow";
+import Home from "./questions/Home";
+import QuestionCreate from "./questions/QuestionCreate";
+import QuestionEdit from "./questions/QuestionEdit";
+import Login from "./auth/Login";
+import Register from "./auth/Register";
 Vue.use(VueRouter);
 
 const routes = [

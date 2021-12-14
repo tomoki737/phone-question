@@ -92,7 +92,7 @@
 export default {
 data() {
     return {
-        isLogin: false,
+        isLogin: true,
     }
 },
     methods: {
@@ -113,7 +113,7 @@ data() {
           });
       }
     },
-    mounted() {
+    created() {
         this.getIsLogin();
     }
 };

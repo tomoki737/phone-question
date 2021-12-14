@@ -22,7 +22,7 @@ class QuestionController extends Controller
         return view('questions.create');
     }
 
-    public function store(Request $request, Question $question)
+    public function store(QuestionRequest $request, Question $question)
     {
         $question->fill($request->all());
         $question->user_id = $request->user()->id;
