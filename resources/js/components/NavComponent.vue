@@ -92,7 +92,7 @@
 export default {
 data() {
     return {
-        isLogin: true,
+        isLogin: false,
     }
 },
     methods: {
@@ -109,12 +109,12 @@ data() {
       getIsLogin() {
           axios.get("/api/isLogin")
           .then((res) => {
-              this.isLogin = res.data.isLogin;
+             this.isLogin = res.data.isLogin;
           });
       }
     },
-    created() {
-        this.getIsLogin();
-    }
+  created(){
+      this.getIsLogin();
+  },
 };
 </script>

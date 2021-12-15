@@ -5,12 +5,8 @@
       <div class="card mx-auto px-3 py-2 mb-3" style="max-width: 50rem">
         <div class="row">
           <div class="col-sm-1">
-            <!-- <a href="{{route('users.show', ['name' => this.question.user.name])}}"><i class="far fa-user-circle fa-3x text-dark"></i></a></p> -->
           </div>
           <div class="col-sm-11">
-            <!-- <a href="{{route('users.show', ['name' => this.question.user.name])}}" class=" text-decoration-none"> -->
-            <!-- <p class="m-0 text-dark">{{this.question.user.name}}</p> -->
-            <!-- </a> -->
             <small>{{ this.question.created_at }}</small>
           </div>
           <div class="col-sm-12">
@@ -109,8 +105,9 @@
 </template>
 <script>
 import NavComponent from "../components/NavComponent.vue";
+import QuestionLike from "../components/QuestionLike.vue";
 export default {
-  components: { NavComponent },
+  components: { NavComponent, QuestionLike },
   props: {
     question: {
       type: Object,

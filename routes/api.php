@@ -1,4 +1,9 @@
 <?php
+use Illuminate\Http\Request;
+
+Route::post('/register', 'RegisterController@register')->name('register');
+Route::post('/login', 'LoginController@login')->name('login');
+Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/isLogin', 'UserController@isLogin');
 Route::get('/guest', 'Auth\LoginController@guestLogin');

@@ -6,8 +6,6 @@
         <div class="border-bottom mt-4">
           <h3>質問投稿</h3>
         </div>
-        <!-- <router-link></router-link> -->
-        <!-- <form action="{{route('questions.store')}}" method="post"  enctype="multipart/form-data"> -->
         <form v-on:submit.prevent="submit">
           <div class="md-form mt-2">
             <label>タイトル</label>
