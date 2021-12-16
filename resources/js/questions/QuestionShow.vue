@@ -3,8 +3,7 @@
     <div class="container">
       <div class="card mx-auto px-3 py-2 mb-3" style="max-width: 50rem">
         <div class="row">
-          <div class="col-sm-1">
-          </div>
+          <div class="col-sm-1"></div>
           <div class="col-sm-11">
             <small>{{ this.question.created_at }}</small>
           </div>
@@ -14,9 +13,14 @@
           <div class="col-sm-12">
             <p class="mt-2">{{ this.question.body }}</p>
           </div>
-          <!-- <div class="col-sm-12">
-                <this.question-like :initial-is-liked-by='@json(this.question.isLikedBy(Auth::user()))' :initial-count-likes='@json(this.question.count_likes)' :authorized='@json(Auth::check())' endpoint="{{ route('questions.like', ['this.question' => this.question]) }}"></this.question-like>
-            </div> -->
+          <div class="col-sm-12">
+            <this.question-like
+              :initial-is-liked-by="this.question.isLikedBy(user)"
+              :initial-count-likes="this.question.count_likes"
+              :authorized="isLogin"
+              endpoint="{{ route('questions.like', ['this.question' => this.question]) }}"
+            ></this.question-like>
+          </div>
         </div>
       </div>
       <div class="row"></div>
@@ -110,6 +114,14 @@ export default {
     question: {
       type: Object,
     },
+  },
+  computed: {
+      user() {
+          return this.$store.state.user;
+      },
+      isLogin() {
+          return this.$store.getters['auth/check']
+      }
   },
 };
 </script>

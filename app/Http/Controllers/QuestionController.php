@@ -51,6 +51,7 @@ class QuestionController extends Controller
     public function show(Question $question)
     {
         $answers = $question->answers->sortByDesc('best_answer');
+        
         return ['question' => $question, 'answers' => $answers];
     }
 
