@@ -33,17 +33,17 @@
                         <button class="btn btn-outline-secondary" type="hidden" id="button-addon2"><i class="fas fa-search"></i></button>
                     </div>
                 </form> -->
-          <li class="nav-item" v-if="!this.isLogin">
+          <li class="nav-item" v-if="!isLogin">
             <router-link v-bind:to="{ name: 'login' }">
               <a class="nav-link active" aria-current="page">ログイン</a>
             </router-link>
           </li>
-          <li class="nav-item" v-if="!this.isLogin">
+          <li class="nav-item" v-if="!isLogin">
             <router-link v-bind:to="{ name: 'register' }">
               <a class="nav-link active" aria-current="page">新規登録</a>
             </router-link>
           </li>
-          <li class="nav-item"  v-if="this.isLogin">
+          <li class="nav-item"  v-if="isLogin">
             <div class="d-grid gap-2 d-md-block mt-sm-2 ms-3">
               <router-link v-bind:to="{ name: 'questions.create' }">
                 <a
@@ -55,7 +55,7 @@
               </router-link>
             </div>
           </li>
-          <li class="nav-item dropdown me-2" v-if="this.isLogin">
+          <li class="nav-item dropdown me-2" v-if="isLogin">
             <div class="btn-group">
               <button
                 type="button"
@@ -90,31 +90,15 @@
 
 <script>
 export default {
-data() {
-    return {
-        isLogin: false,
-    }
-},
     methods: {
-      logout() {
-        axios
-          .post("/logout")
-          .then((res) => {
-            this.getIsLogin();
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      },
-      getIsLogin() {
-          axios.get("/api/isLogin")
-          .then((res) => {
-             this.isLogin = res.data.isLogin;
-          });
-      }
+       async logout() {
+           await this.$store.dispatch('auth/logout');
+        },
     },
-  created(){
-      this.getIsLogin();
+  computed: {
+           isLogin() {
+          return this.$store.getters['auth/check']
+      }
   },
 };
 </script>

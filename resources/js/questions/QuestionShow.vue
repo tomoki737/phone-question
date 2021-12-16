@@ -1,6 +1,5 @@
 <template>
   <div>
-    <nav-component></nav-component>
     <div class="container">
       <div class="card mx-auto px-3 py-2 mb-3" style="max-width: 50rem">
         <div class="row">
@@ -104,10 +103,9 @@
   </div>
 </template>
 <script>
-import NavComponent from "../components/NavComponent.vue";
 import QuestionLike from "../components/QuestionLike.vue";
 export default {
-  components: { NavComponent, QuestionLike },
+  components: { QuestionLike },
   props: {
     question: {
       type: Object,

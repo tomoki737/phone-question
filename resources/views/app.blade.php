@@ -17,7 +17,6 @@
 
 <body class="bg-light">
     <div id="app">
-        <router-view></router-view>
     </div>
     <script src="{{ mix('js/app.js') }}"></script>
     <!-- Bootstrap Bunde with Popper -->

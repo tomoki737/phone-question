@@ -65,10 +65,4 @@ class UserController extends Controller
         return ['name' => $name];
     }
 
-    public function isLogin(Request $request)
-    {
-        $isLogin = $request->user() ? true : false;
-        return ['isLogin' => $isLogin];
-    }
-
 }

@@ -1,6 +1,5 @@
  <template>
  <div>
- <nav-component></nav-component>
   <div class="container" style="max-width: 800px">
     <div class="row">
       <ul class="nav nav-tabs mt-3 justify-content-center">
@@ -36,14 +35,12 @@
 </template>
 
  <script>
-import NavComponent from '../components/NavComponent.vue';
 import QuestionSolve from "../components/QuestionSolve.vue";
 import QuestionUnSolution from "../components/QuestionUnSolution.vue";
 export default {
   components: {
     QuestionSolve,
     QuestionUnSolution,
-    NavComponent,
   },
   data() {
     return {

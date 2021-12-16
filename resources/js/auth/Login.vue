@@ -1,13 +1,21 @@
 <template>
   <div>
-    <nav-component></nav-component>
     <div class="container">
       <div class="row">
         <h1 class="text-center mt-5">ログイン</h1>
         <div class="card mt-3 m-auto" style="width: 30rem">
           <div class="card-body">
             <div class="mx-auto">
-              <p v-show="isError">認証に失敗しました。</p>
+              <div v-if="loginErrors" class="errors">
+                <ul v-if="loginErrors.email">
+                  <li v-for="msg in loginErrors.email" :key="msg">{{msg}}</li>
+                </ul>
+                <ul v-if="loginErrors.password">
+                  <li v-for="msg in loginErrors.password" :key="msg">
+                    {{msg}}
+                  </li>
+                </ul>
+              </div>
               <div class="form-group my-3">
                 <label for="email">メールアドレス</label>
                 <div class="col-sm-12 mx-auto mt-2">
@@ -17,7 +25,7 @@
                     id="email"
                     name="email"
                     placeholder="メールアドレス"
-                    v-model="email"
+                    v-model="loginForm.email"
                   />
                 </div>
               </div>
@@ -30,14 +38,9 @@
                     id="exampleInputPassword1"
                     name="password"
                     placeholder="パスワード"
-                    v-model="password"
+                    v-model="loginForm.password"
                   />
                 </div>
-              </div>
-              <div class="form-group mb-2">
-                <label>
-                  <input type="checkbox" v-model="remember" /> 次回から省略
-                </label>
               </div>
               <input type="hidden" name="remember" id="remember" value="on" />
               <div class="d-grid gap-2 col-sm-12 mx-auto">
@@ -65,33 +68,37 @@
   </div>
 </template>
 <script>
-import NavComponent from "../components/NavComponent.vue";
 export default {
-  components: { NavComponent },
   data() {
     return {
-      email: "",
-      password: "",
-      remember: false,
-      isError: false,
+      loginForm: {
+        email: "",
+        password: "",
+      },
     };
   },
   methods: {
-    login() {
-      axios
-        .post("/login", {
-          email: this.email,
-          password: this.password,
-          remember: this.remember,
-        })
-        .then((res) => {
-          this.$router.push({ name: "home" });
-        })
-        .catch((error) => {
-          this.isError = true;
-        });
+    async login() {
+      await this.$store.dispatch("auth/login", this.loginForm);
+      if (this.apiStatus) {
+        this.$router.push({ name: "home" });
+      }
+    },
+    clearError() {
+        this.$store.commit('auth/setLoginErrorMessages', null)
+    }
+  },
+  computed: {
+    apiStatus() {
+      return this.$store.state.auth.apiStatus;
+    },
+    loginErrors() {
+      return this.$store.state.auth.loginErrorMessages;
     },
   },
+  created() {
+      this.clearError();
+  }
 };
 </script>
 

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <nav-component></nav-component>
     <div class="container" style="max-width: 800px">
       <div class="row">
         <div class="border-bottom mt-4">
@@ -39,9 +38,7 @@
 </template>
 
 <script>
-import NavComponent from "../components/NavComponent.vue";
 export default {
-  components: { NavComponent },
   data() {
     return {
       question: {},

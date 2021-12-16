@@ -7,6 +7,8 @@ import QuestionCreate from "./questions/QuestionCreate";
 import QuestionEdit from "./questions/QuestionEdit";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
+import SystemError from "./errors/System.vue";
+import store from "./store/";
 Vue.use(VueRouter);
 
 const routes = [
@@ -24,23 +26,35 @@ const routes = [
     {
         path: "/questions/",
         name: "questions.create",
-        component: QuestionCreate,
+        component: QuestionCreate
     },
     {
         path: "/questions/:question/edit",
         name: "questions.edit",
         component: QuestionEdit,
-        props: true,
+        props: true
     },
     {
         path: "/login",
         name: "login",
         component: Login,
+        beforeEnter(to, from, next) {
+            if (store["auth/check"]) {
+                next("/");
+            } else {
+                next();
+            }
+        }
     },
     {
         path: "/register",
         name: "register",
-        component: Register,
+        component: Register
+    },
+    {
+        path: "/500",
+        name: "systemError",
+        component: SystemError
     }
 ];
 
@@ -51,7 +65,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (state.isLogin === false) {
+        if (store.isLogin === false) {
             next({
                 path: "/login",
                 query: { redirect: to.fullPath }

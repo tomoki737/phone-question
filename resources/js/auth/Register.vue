@@ -1,6 +1,5 @@
 <template>
   <div>
-    <nav-component></nav-component>
     <div class="container">
       <div class="row">
         <h1 class="text-center mt-5">ユーザー登録</h1>
@@ -8,7 +7,16 @@
           <div class="card-body">
             <div class="mx-auto">
               <div class="card-body">
-                <p v-show="isError">認証に失敗しました。</p>
+                <div v-if="registerErrors" class="errors">
+                <ul v-if="registerErrors.email">
+                  <li v-for="msg in registerErrors.email" :key="msg">{{msg}}</li>
+                </ul>
+                <ul v-if="registerErrors.password">
+                  <li v-for="msg in registerErrors.password" :key="msg">
+                    {{msg}}
+                  </li>
+                </ul>
+              </div>
                 <div class="form-group my-3">
                   <label for="name">ユーザー名</label>
                   <div class="col-sm-12 mx-auto mt-2">
@@ -18,7 +26,7 @@
                       id="name"
                       name="name"
                       placeholder="ユーザー名を入力"
-                      v-model="name"
+                      v-model="registerForm.name"
                     />
                   </div>
                   <small>英数字3〜16文字</small>
@@ -32,7 +40,7 @@
                       id="email"
                       name="email"
                       placeholder="メールアドレスを入力"
-                      v-model="email"
+                      v-model="registerForm.email"
                     />
                   </div>
                 </div>
@@ -46,7 +54,7 @@
                       name="password"
                       placeholder="パスワードを入力"
                       required
-                      v-model="password"
+                      v-model="registerForm.password"
                     />
                   </div>
                 </div>
@@ -59,7 +67,7 @@
                       id="password_confirmation"
                       name="password_confirmation"
                       placeholder="パスワードを確認"
-                      v-model="password_confirmation"
+                      v-model="registerForm.password_confirmation"
                     />
                   </div>
                 </div>
@@ -81,7 +89,7 @@
                   <span>お持ちの方はこちら</span>
                 </p>
                 <router-link
-                  v-bind:to="{ name: 'login' }"
+                  v-bind:to="{ name: 'register' }"
                   class="text-decoration-none"
                 >
                   <div class="d-grid gap-2 col-12 mx-auto">
@@ -115,35 +123,28 @@
   </div>
 </template>
 <script>
-import NavComponent from '../components/NavComponent.vue';
+import NavComponent from "../components/NavComponent.vue";
 export default {
-    components: {
-        NavComponent,
-    },
+  components: {
+    NavComponent,
+  },
   data() {
     return {
-      name: "",
-      email: "",
-      password: "",
-      password_confirmation: "",
+      registerForm: {
+        name: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
+      },
       isError: false,
     };
   },
   methods: {
-    register() {
-      axios
-        .post("/register", {
-          name: this.name,
-          email: this.email,
-          password: this.password,
-          password_confirmation: this.password_confirmation,
-        })
-        .then((res) => {
-          this.$router.push({ name: "home" });
-        })
-        .catch((error) => {
-          this.isError = true;
-        });
+    async register() {
+      await this.$store.dispatch("auth/register", this.registerForm);
+      if(this.apiStatus) {
+      this.$router.push({ name: "home" });
+      }
     },
     guestLogin() {
       axios
@@ -155,6 +156,21 @@ export default {
           this.isError = true;
         });
     },
+      clearError() {
+    this.$store.commit("auth/setLoginErrorMessages", null);
+  },
+  },
+
+  computed: {
+    apiStatus() {
+      return this.$store.state.auth.apiStatus;
+    },
+    registerErrors() {
+      return this.$store.state.auth.registerErrorMessages;
+    },
+  },
+  created() {
+    this.clearError();
   },
 };
 </script>
