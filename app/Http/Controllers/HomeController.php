@@ -8,7 +8,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $questions = Question::whereNotNull('best_answer')->with(['user', 'answers','isLikedBy','getCountLikesAttribute'])->get();
+        $questions = Question::whereNotNull('best_answer')->with(['user', 'answers'])->get();
         return ['questions' => $questions];
     }
 

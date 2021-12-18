@@ -50,9 +50,8 @@ class QuestionController extends Controller
 
     public function show(Request $request,$question_id)
     {
-        $question = Question::where('id', $question_id)->first();
-        $question->with('getCountLikesAttribute');
-        $answers = $question->answers->sortByDesc('best_answer');
+        $question = Question::where('id', $question_id)->withCount(['answers', 'likes',])->first()->load('answers');
+        $answers = $question->answers->sortByDesc('best_answer')->load('comments');
         $initialIsLikedBy = $question->isLikedBy($request->user());
         return ['question' => $question, 'answers' => $answers, 'initialIsLikedBy' => $initialIsLikedBy];
     }

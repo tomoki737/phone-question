@@ -27,7 +27,7 @@ class Question extends Model
         return $this->hasMany('App\Answer');
     }
 
-    public function getCountAnswersAttribute():int
+    public function getCoucntAnswersAttribute():int
     {
         return $this->answers->count();
     }
@@ -47,10 +47,5 @@ class Question extends Model
     public function getCountLikesAttribute():int
     {
         return $this->likes->count();
-    }
-
-    public function image():HasOne
-    {
-        return $this->hasOne('App\QuestionImage');
     }
 }

@@ -16,7 +16,7 @@
           <div class="col-sm-12">
             <question-like
               :initial-is-liked-by="initialIsLikedBy"
-              :initial-count-likes="this.question.count_likes"
+              :initial-count-likes="this.question.likes_count"
               :authorized="isLogin"
               :question_id="this.question.id"
             ></question-like>
@@ -119,6 +119,7 @@ export default {
       return {
           question: this.question,
           initialIsLikedBy: false,
+          count_likes: 0,
           answers: {},
       };
   },
@@ -136,6 +137,8 @@ export default {
            this.question = response.data.question;
            this.answers = response.data.answers;
            this.initialIsLikedBy = response.data.initialIsLikedBy;
+           this.count_likes = response.data.count_likes;;
+      console.log(this.question.answers_count)
       }
   },
   mounted() {
