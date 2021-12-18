@@ -74,6 +74,7 @@ export default {
       loginForm: {
         email: "",
         password: "",
+        remember: true,
       },
     };
   },

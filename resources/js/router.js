@@ -18,7 +18,7 @@ const routes = [
         component: Home
     },
     {
-        path: "/questions/:question",
+        path: "/questions/:question_id/show",
         name: "questions.show",
         component: QuestionShow,
         props: true

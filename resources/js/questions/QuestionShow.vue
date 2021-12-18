@@ -14,12 +14,12 @@
             <p class="mt-2">{{ this.question.body }}</p>
           </div>
           <div class="col-sm-12">
-            <this.question-like
-              :initial-is-liked-by="this.question.isLikedBy(user)"
+            <question-like
+              :initial-is-liked-by="initialIsLikedBy"
               :initial-count-likes="this.question.count_likes"
               :authorized="isLogin"
-              endpoint="{{ route('questions.like', ['this.question' => this.question]) }}"
-            ></this.question-like>
+              :question_id="this.question.id"
+            ></question-like>
           </div>
         </div>
       </div>
@@ -111,9 +111,16 @@ import QuestionLike from "../components/QuestionLike.vue";
 export default {
   components: { QuestionLike },
   props: {
-    question: {
-      type: Object,
+    question_id: {
+      type: Number,
     },
+  },
+  data() {
+      return {
+          question: this.question,
+          initialIsLikedBy: false,
+          answers: {},
+      };
   },
   computed: {
       user() {
@@ -121,7 +128,18 @@ export default {
       },
       isLogin() {
           return this.$store.getters['auth/check']
+      },
+  },
+  methods: {
+      async getQuestion() {
+          const response = await axios.get('/api/questions/' + this.question_id + '/show');
+           this.question = response.data.question;
+           this.answers = response.data.answers;
+           this.initialIsLikedBy = response.data.initialIsLikedBy;
       }
+  },
+  mounted() {
+      this.getQuestion();
   },
 };
 </script>

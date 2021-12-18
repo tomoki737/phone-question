@@ -8,7 +8,7 @@ use App\Question;
 use App\QuestionImage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use SebastianBergmann\Environment\Console;
+use SebastianBergmann\Environment\Console;;
 
 class QuestionController extends Controller
 {
@@ -48,11 +48,13 @@ class QuestionController extends Controller
         return $question;
     }
 
-    public function show(Question $question)
+    public function show(Request $request,$question_id)
     {
+        $question = Question::where('id', $question_id)->first();
+        $question->with('getCountLikesAttribute');
         $answers = $question->answers->sortByDesc('best_answer');
-        
-        return ['question' => $question, 'answers' => $answers];
+        $initialIsLikedBy = $question->isLikedBy($request->user());
+        return ['question' => $question, 'answers' => $answers, 'initialIsLikedBy' => $initialIsLikedBy];
     }
 
     public function like(Request $request, Question $question)
@@ -74,18 +76,20 @@ class QuestionController extends Controller
         ];
     }
 
-    public function best_answer(Question $question, $answer_id) {
+    public function best_answer(Question $question, $answer_id)
+    {
         $question->best_answer = $answer_id;
         $question->save();
         return back();
     }
-    public function search(Request $request) {
+    public function search(Request $request)
+    {
         $query = Question::query()->orderBy('id', 'asc');
         $content = $request->content;
-        if(isset($request->content)){
+        if (isset($request->content)) {
             $query->where('body', 'like', "%" . $request->content . "%");
         }
         $questions = $query->get();
-        return view('questions.search',['questions' => $questions, 'content' => $content]);
+        return view('questions.search', ['questions' => $questions, 'content' => $content]);
     }
 }

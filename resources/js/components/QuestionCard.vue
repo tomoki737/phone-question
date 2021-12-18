@@ -3,7 +3,7 @@
     <div class="row mb-2">
         <div class="col-sm-11">
             <!-- <a href="{{ route('questions.show', ['question' => $question]) }}" class="text-decoration-none"> -->
-                 <router-link v-bind:to="{name: 'questions.show', params: {question: this.question}}">
+                 <router-link v-bind:to="{name: 'questions.show', params: {question_id: this.question.id}}">
                 <h5>{{ this.question.title }}</h5>
                 </router-link>
             <!-- </a> -->
