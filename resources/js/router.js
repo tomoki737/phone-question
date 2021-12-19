@@ -6,6 +6,9 @@ import Home from "./questions/Home";
 import QuestionCreate from "./questions/QuestionCreate";
 import QuestionEdit from "./questions/QuestionEdit";
 import AnswerEdit from "./answers/AnswerEdit";
+import UserAnswer from "./users/UserAnswer";
+import UserLike from "./users/UserLike";
+import User from "./users/User";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import SystemError from "./errors/System.vue";
@@ -61,6 +64,12 @@ const routes = [
         path: "/answers/:answer_id/edit",
         name: "answers.edit",
         component: AnswerEdit,
+        props: true
+    },
+    {
+        path: "/users/:user_name",
+        name: "users.show",
+        component: User,
         props: true
     },
 ];

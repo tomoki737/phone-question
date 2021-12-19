@@ -15,6 +15,7 @@ Route::prefix('questions')->name('questions.')->group(function () {
     Route::delete('/{question}/unlike', 'QuestionController@unlike')->name('unlike');
     // Route::put('/{question}/answers/{answer}', 'QuestionController@best_answer')->name('best_answer');
 });
+Route::put('/search', 'QuestionController@search')->name('questions.search');
 Route::get('/questions/{question_id}/show', 'QuestionController@show')->name('questions.show');
 Route::resource('/questions', 'QuestionController')->only(['store', 'update', 'destroy']);
 
@@ -24,3 +25,17 @@ Route::prefix('answers')->name('answers.')->group(function () {
     Route::put('/{answer}/comment', 'AnswerController@comment')->name('comment')->middleware('auth');
     Route::delete('/comment/{comment}', 'AnswerController@uncomment')->name('uncomment')->middleware('auth');
 });
+
+Route::prefix('users')->name('users.')->group(function () {
+    Route::get('/{name}', 'UserController@show')->name('show');
+    Route::get('/{name}/answers', 'UserController@answers')->name('answers');
+    Route::get('/{name}/questions', 'UserController@questions')->name('questions');
+    Route::get('/{name}/likes', 'UserController@likes')->name('likes');
+    Route::get('/{name}/followings', 'UserController@followings')->name('followings');
+    Route::get('/{name}/followers', 'UserController@followers')->name('followers');
+    Route::middleware('auth')->group(function () {
+        Route::put('/{name}/follow', 'UserController@follow')->name('follow');
+        Route::delete('/{name}/follow', 'UserController@unfollow')->name('unfollow');
+    });
+});
+

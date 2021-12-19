@@ -73,9 +73,10 @@
               <i class="far fa-user-circle fa-3x text-dark pe-2"></i>
             </div>
             <div class="col-sm-10">
-              <!-- <a href="{{route('users.show', ['name' => answer.user.name])}}" class=" text-decoration-none"> -->
+                  <router-link v-bind:to="{ name: 'users.show', params: {user_name: answer.user.name} }">
               <p class="m-0 text-dark">{{ answer.user.name }}</p>
-              <!-- </a> -->
+
+                  </router-link>
               <small>{{ answer.created_at }}</small>
             </div>
             <div class="col-sm-1">

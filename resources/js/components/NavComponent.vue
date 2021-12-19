@@ -43,7 +43,7 @@
               <a class="nav-link active" aria-current="page">新規登録</a>
             </router-link>
           </li>
-          <li class="nav-item"  v-if="isLogin">
+          <li class="nav-item" v-if="isLogin">
             <div class="d-grid gap-2 d-md-block mt-sm-2 ms-3">
               <router-link v-bind:to="{ name: 'questions.create' }">
                 <a
@@ -67,7 +67,17 @@
                 <i class="far fa-user-circle fa-2x"></i>
               </button>
               <ul class="dropdown-menu dropdown-menu-lg-end">
-                <li><a class="dropdown-item">マイページ</a></li>
+                <li>
+                  <router-link
+                    v-bind:to="{
+                      name: 'users.show',
+                      params: { user_name: isUserName },
+                    }"
+                    class="dropdown-item"
+                  >
+                    マイページ
+                  </router-link>
+                </li>
                 <li>
                   <hr class="dropdown-divider" />
                   <button
@@ -90,15 +100,18 @@
 
 <script>
 export default {
-    methods: {
-       async logout() {
-           await this.$store.dispatch('auth/logout');
-        },
+  methods: {
+    async logout() {
+      await this.$store.dispatch("auth/logout");
     },
+  },
   computed: {
-           isLogin() {
-          return this.$store.getters['auth/check']
-      }
+    isLogin() {
+      return this.$store.getters["auth/check"];
+    },
+    isUserName() {
+      return this.$store.getters["auth/name"];
+    },
   },
 };
 </script>

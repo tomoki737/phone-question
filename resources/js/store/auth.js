@@ -33,9 +33,10 @@ const actions = {
     async register(context, data) {
         context.commit("setApiStatus", null);
         const response = await Axios.post("/api/register", data);
-        if (response.status == OK) {
+        if (response.status == 200) {
             context.commit("setApiStatus", true);
-            context.commit("setUser", response.data);
+            context.commit("setUser", null);
+            context.commit("setUser", response.data.user);
             return false;
         }
         context.commit("setApiStatus", false);

@@ -22,11 +22,9 @@
       </ul>
       <question-solve
         v-show="this.isActive === 1"
-        v-bind:questions="this.questions"
       ></question-solve>
       <question-un-solution
         v-show="this.isActive === 2"
-        v-bind:questions="this.questions"
       ></question-un-solution>
 
     </div>
