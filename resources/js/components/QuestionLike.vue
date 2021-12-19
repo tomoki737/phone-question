@@ -47,8 +47,6 @@
       this.isLikedBy ? this.unlike() : this.like();
     },
     async like() {
-      console.log(this.question)
-      console.log(this.isLikedBy)
       const response = await axios.put('/api/questions/' + this.question_id + '/like');
       this.isLikedBy = true;
       this.countLikes = response.data.countLikes;

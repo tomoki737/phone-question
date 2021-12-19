@@ -23,12 +23,6 @@ Route::put('/search', 'QuestionController@search')->name('questions.search');
 //     Route::put('/{question}/answers/{answer}', 'QuestionController@best_answer')->name('best_answer')->middleware('auth');
 // });
 
-Route::resource('/answers', 'AnswerController', ['except' => ['index', 'show', 'create', 'store']])->middleware('auth');
-Route::prefix('answers')->name('answers.')->group(function () {
-    Route::put('/question/{question}', 'AnswerController@store')->name('store')->middleware('auth');
-    Route::put('/{answer}/comment', 'AnswerController@comment')->name('comment')->middleware('auth');
-    Route::delete('/comment/{comment}', 'AnswerController@uncomment')->name('uncomment')->middleware('auth');
-});
 
 Route::prefix('users')->name('users.')->group(function () {
     Route::get('/{name}', 'UserController@show')->name('show');

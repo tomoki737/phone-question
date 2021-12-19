@@ -33,7 +33,7 @@ class QuestionController extends Controller
 
     public function edit(Question $question)
     {
-        return view('questions.edit', ['question' => $question]);
+        return ['question' => $question];
     }
 
     public function update(QuestionRequest $request, Question $question)
@@ -50,8 +50,8 @@ class QuestionController extends Controller
 
     public function show(Request $request,$question_id)
     {
-        $question = Question::where('id', $question_id)->withCount(['answers', 'likes',])->first()->load('answers');
-        $answers = $question->answers->sortByDesc('best_answer')->load('comments');
+        $question = Question::where('id', $question_id)->withCount(['answers', 'likes'])->first()->load('answers','user');
+        $answers = $question->answers->sortByDesc('best_answer')->load(['comments', 'user', 'comments.user',]);
         $initialIsLikedBy = $question->isLikedBy($request->user());
         return ['question' => $question, 'answers' => $answers, 'initialIsLikedBy' => $initialIsLikedBy];
     }

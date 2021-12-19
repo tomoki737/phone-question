@@ -5,6 +5,7 @@ import QuestionShow from "./questions/QuestionShow";
 import Home from "./questions/Home";
 import QuestionCreate from "./questions/QuestionCreate";
 import QuestionEdit from "./questions/QuestionEdit";
+import AnswerEdit from "./answers/AnswerEdit";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import SystemError from "./errors/System.vue";
@@ -12,28 +13,6 @@ import store from "./store/";
 Vue.use(VueRouter);
 
 const routes = [
-    {
-        path: "/",
-        name: "home",
-        component: Home
-    },
-    {
-        path: "/questions/:question_id/show",
-        name: "questions.show",
-        component: QuestionShow,
-        props: true
-    },
-    {
-        path: "/questions/",
-        name: "questions.create",
-        component: QuestionCreate
-    },
-    {
-        path: "/questions/:question/edit",
-        name: "questions.edit",
-        component: QuestionEdit,
-        props: true
-    },
     {
         path: "/login",
         name: "login",
@@ -55,7 +34,35 @@ const routes = [
         path: "/500",
         name: "systemError",
         component: SystemError
-    }
+    },
+    {
+        path: "/",
+        name: "home",
+        component: Home
+    },
+    {
+        path: "/questions/:question_id/show",
+        name: "questions.show",
+        component: QuestionShow,
+        props: true
+    },
+    {
+        path: "/questions/",
+        name: "questions.create",
+        component: QuestionCreate
+    },
+    {
+        path: "/questions/:question_id/edit",
+        name: "questions.edit",
+        component: QuestionEdit,
+        props: true
+    },
+    {
+        path: "/answers/:answer_id/edit",
+        name: "answers.edit",
+        component: AnswerEdit,
+        props: true
+    },
 ];
 
 const router = new VueRouter({

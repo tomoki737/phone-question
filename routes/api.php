@@ -16,4 +16,11 @@ Route::prefix('questions')->name('questions.')->group(function () {
     // Route::put('/{question}/answers/{answer}', 'QuestionController@best_answer')->name('best_answer');
 });
 Route::get('/questions/{question_id}/show', 'QuestionController@show')->name('questions.show');
-Route::resource('/questions', 'QuestionController')->only(['store', 'update']);
+Route::resource('/questions', 'QuestionController')->only(['store', 'update', 'destroy']);
+
+Route::resource('/answers', 'AnswerController', ['except' => ['index', 'show', 'create', 'store']])->middleware('auth');
+Route::prefix('answers')->name('answers.')->group(function () {
+    Route::put('/question/{question_id}', 'AnswerController@store')->name('store')->middleware('auth');
+    Route::put('/{answer}/comment', 'AnswerController@comment')->name('comment')->middleware('auth');
+    Route::delete('/comment/{comment}', 'AnswerController@uncomment')->name('uncomment')->middleware('auth');
+});

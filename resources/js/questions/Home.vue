@@ -4,19 +4,19 @@
     <div class="row">
       <ul class="nav nav-tabs mt-3 justify-content-center">
         <li class="nav-item">
-          <a
-            class="nav-link"
+          <div
+            class="nav-link" style="cursor: pointer;"
             @click="changeTab(1)"
             v-bind:class="{ active: this.isActive === 1 }"
-            >最近の解決済</a
+            >最近の解決済</div
           >
         </li>
-        <li class="nav-item">
-          <a
+        <li class="nav-item" style="cursor: pointer;">
+          <div
             class="nav-link"
             @click="changeTab(2)"
             v-bind:class="{ active: this.isActive === 2 }"
-            >未解決</a
+            >未解決</div
           >
         </li>
       </ul>
