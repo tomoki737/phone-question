@@ -6,8 +6,7 @@ import Home from "./questions/Home";
 import QuestionCreate from "./questions/QuestionCreate";
 import QuestionEdit from "./questions/QuestionEdit";
 import AnswerEdit from "./answers/AnswerEdit";
-import UserAnswer from "./users/UserAnswer";
-import UserLike from "./users/UserLike";
+import QuestionSearch from "./questions/QuestionSearch";
 import User from "./users/User";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
@@ -58,6 +57,12 @@ const routes = [
         path: "/questions/:question_id/edit",
         name: "questions.edit",
         component: QuestionEdit,
+        props: true
+    },
+    {
+        path: "/questions/search/:content",
+        name: "questions.search",
+        component: QuestionSearch,
         props: true
     },
     {

@@ -13,9 +13,9 @@ Route::get('/un_solve', 'HomeController@un_solve')->name('un_solve');
 Route::prefix('questions')->name('questions.')->group(function () {
     Route::put('/{question}/like', 'QuestionController@like')->name('like');
     Route::delete('/{question}/unlike', 'QuestionController@unlike')->name('unlike');
-    // Route::put('/{question}/answers/{answer}', 'QuestionController@best_answer')->name('best_answer');
+    Route::put('/{question}/answers/{answer}', 'QuestionController@best_answer')->name('best_answer');
 });
-Route::put('/search', 'QuestionController@search')->name('questions.search');
+Route::get('/search/{content}', 'QuestionController@search')->name('questions.search');
 Route::get('/questions/{question_id}/show', 'QuestionController@show')->name('questions.show');
 Route::resource('/questions', 'QuestionController')->only(['store', 'update', 'destroy']);
 

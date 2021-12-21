@@ -25,14 +25,27 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto">
-          <!-- <form class="d-flex align-items-end" action="{{route('questions.search')}}" method="post">
-                    @csrf
-                    @method('put')
-                    <div class="input-group ">
-                        <input type="search" class="form-control" placeholder="質問を検索" aria-label="Search" aria-describedby="button-addon2" name="content" value="{{$content ?? old('content')}}">
-                        <button class="btn btn-outline-secondary" type="hidden" id="button-addon2"><i class="fas fa-search"></i></button>
-                    </div>
-                </form> -->
+          <div class="d-flex align-items-end">
+            <div class="input-group">
+              <input
+                type="search"
+                class="form-control"
+                placeholder="質問を検索"
+                aria-label="Search"
+                aria-describedby="button-addon2"
+                name="content"
+                v-model="content"
+              />
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                id="button-addon2"
+                @click="search"
+              >
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
           <li class="nav-item" v-if="!isLogin">
             <router-link v-bind:to="{ name: 'login' }">
               <a class="nav-link active" aria-current="page">ログイン</a>
@@ -100,9 +113,20 @@
 
 <script>
 export default {
+  data() {
+    return {
+      content: "",
+    };
+  },
   methods: {
     async logout() {
       await this.$store.dispatch("auth/logout");
+    },
+    async search() {
+      this.$router.push({
+        name: "questions.search",
+        params: { content: this.content },
+      });
     },
   },
   computed: {

@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Database\Seeder;
@@ -10,8 +11,8 @@ class QuestionsTableSeeder extends Seeder
        [
            [
                'id' => 2,
-               'title' => 'TestTitl11111',
-               'body' => 'testBodyです1',
+               'title' => 'TestTite',
+               'body' => 'testBody',
                'solution' => true,
                'user_id' => 2,
                'created_at'=> now(),

@@ -13,7 +13,7 @@
           <div class="col-sm-1">
             <div
               class="dropdown d-flex flex-row-reverse"
-              v-if="question.user_id === user_id"
+              v-if="question.user.id === user_id"
             >
               <i
                 class="fas fa-ellipsis-v"
@@ -73,10 +73,14 @@
               <i class="far fa-user-circle fa-3x text-dark pe-2"></i>
             </div>
             <div class="col-sm-10">
-                  <router-link v-bind:to="{ name: 'users.show', params: {user_name: answer.user.name} }">
-              <p class="m-0 text-dark">{{ answer.user.name }}</p>
-
-                  </router-link>
+              <router-link
+                v-bind:to="{
+                  name: 'users.show',
+                  params: { user_name: answer.user.name },
+                }"
+              >
+                <p class="m-0 text-dark">{{ answer.user.name }}</p>
+              </router-link>
               <small>{{ answer.created_at }}</small>
             </div>
             <div class="col-sm-1">
@@ -117,20 +121,25 @@
             <div class="col-sm-12">
               <button
                 class="btn btn-danger mb-3"
-                v-if="question_id === user_id"
+                v-if="question.user.id === user_id && !question.best_answer"
                 type="button"
+                @click="bestAnswer(question.id, answer.id)"
               >
                 ベストアンサーに選ぶ
               </button>
             </div>
-            <div v-for="(comment, index) in answer.comments" :key="index" class="row">
+            <div
+              v-for="(comment, index) in answer.comments"
+              :key="index"
+              class="row"
+            >
               <div class="col-sm-11">
                 <i class="far fa-user-circle fa-2x"></i>
                 <span class="my-auto">{{ comment.user.name }}</span>
               </div>
               <div
                 class="dropdown d-flex flex-row-reverse col-sm-1"
-                v-if="comment.user_id === user_id"
+                v-if="comment.user.id === user_id"
               >
                 <i
                   class="fas fa-ellipsis-v"
@@ -207,7 +216,7 @@ export default {
   components: { QuestionLike },
   props: {
     question_id: {
-      type: String,
+      type: [String, Number],
     },
   },
   data() {
@@ -263,6 +272,12 @@ export default {
     async questionDelete(id) {
       const response = await axios.delete("/api/questions/" + id);
       this.$router.push({ name: "home" });
+    },
+    async bestAnswer(question_id, answer_id) {
+      const response = await axios.put(
+        "/api/questions/" + question_id + "/answers/" + answer_id
+      );
+      this.getQuestion();
     },
     changeComment(event) {
       this.comment.body = event.target.value;

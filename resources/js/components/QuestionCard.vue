@@ -2,7 +2,7 @@
 <div class="border-bottom bg-white p-3">
     <div class="row mb-2">
         <div class="col-sm-11">
-                 <router-link v-bind:to="{name: 'questions.show', params: {question_id: question.id}}" class="text-decoration-none">
+                 <router-link v-bind:to="{ name: 'questions.show', params: {question_id: question.id} }" class="text-decoration-none">
                 <h5>{{ question.title }}</h5>
                 </router-link>
                 <div v-for=" (answer, index) in question.answers" :key="index">

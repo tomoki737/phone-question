@@ -48,9 +48,9 @@ class QuestionController extends Controller
         return $question;
     }
 
-    public function show(Request $request,$question_id)
+    public function show(Request $request, $question_id)
     {
-        $question = Question::where('id', $question_id)->withCount(['answers', 'likes'])->first()->load('answers','user');
+        $question = Question::where('id', $question_id)->withCount(['answers', 'likes'])->first()->load('answers', 'user');
         $answers = $question->answers->sortByDesc('best_answer')->load(['comments', 'user', 'comments.user']);
         $initialIsLikedBy = $question->isLikedBy($request->user());
         return ['question' => $question, 'answers' => $answers, 'initialIsLikedBy' => $initialIsLikedBy];
@@ -75,20 +75,22 @@ class QuestionController extends Controller
         ];
     }
 
-    public function best_answer(Question $question, $answer_id)
+    public function best_answer(Question $question, $answer)
     {
-        $question->best_answer = $answer_id;
+        $question->best_answer = $answer;
         $question->save();
         return back();
     }
-    public function search(Request $request)
+    public function search($content)
     {
-        $query = Question::query()->orderBy('id', 'asc');
-        $content = $request->content;
-        if (isset($request->content)) {
-            $query->where('body', 'like', "%" . $request->content . "%");
+        $query = Question::query();
+        if($content !== null) {
+            $query->when($content, function ($query, $content) {
+                return  $query->where('body', 'like', "%" . $content . "%");
+            });
         }
-        $questions = $query->get();
-        return view('questions.search', ['questions' => $questions, 'content' => $content]);
+
+        $questions = $query->get()->load(['answers', 'user']);
+        return ['questions' => $questions];
     }
 }
