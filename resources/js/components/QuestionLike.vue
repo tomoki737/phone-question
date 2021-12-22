@@ -26,8 +26,8 @@
         type: Boolean,
         default: false,
       },
-      endpoint: {
-        type: String,
+      question_id: {
+        type: Number,
       },
     },
     data() {
@@ -38,6 +38,7 @@
     },
 
   methods: {
+
     clickLike() {
       if (!this.authorized) {
         alert("いいね機能はログイン中のみ使用できます");
@@ -46,16 +47,13 @@
       this.isLikedBy ? this.unlike() : this.like();
     },
     async like() {
-        console.log('like')
-      const response = await axios.put(this.endpoint);
-
+      const response = await axios.put('/api/questions/' + this.question_id + '/like');
       this.isLikedBy = true;
       this.countLikes = response.data.countLikes;
     },
 
     async unlike() {
-        console.log(this.endpoint);
-      const response = await axios.delete(this.endpoint);
+      const response = await axios.delete('/api/questions/' + this.question_id + '/unlike');
       this.isLikedBy = false;
       this.countLikes = response.data.countLikes;
     },

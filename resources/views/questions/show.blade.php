@@ -27,8 +27,6 @@
             </div>
         </div>
     </div>
-    <div class="row">
-    </div>
     @foreach($answers as $answer)
     <div class="card mx-auto px-3 py-2 mb-2" style="max-width: 50rem;">
         <div class="row">

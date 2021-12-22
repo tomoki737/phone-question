@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use phpDocumentor\Reflection\Types\Boolean;
+use Laravel\Sanctum\HasApiTokens;
 
 use function PHPSTORM_META\map;
 

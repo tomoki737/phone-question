@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
@@ -33,7 +33,7 @@ class RegisterController extends Controller
 
     /**
      * Create a new controller instance.
-     *
+
      * @return void
      */
     public function __construct()
@@ -70,4 +70,10 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+    protected function registered(Request $request, $user)
+    {
+        return ['user' => $user];
+    }
+
 }

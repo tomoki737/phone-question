@@ -8,6 +8,7 @@ use App\Question;
 use App\QuestionImage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use SebastianBergmann\Environment\Console;;
 
 class QuestionController extends Controller
 {
@@ -26,32 +27,33 @@ class QuestionController extends Controller
         $question->fill($request->all());
         $question->user_id = $request->user()->id;
         $question->save();
-        return redirect(route('questions.show', ['question' => $question]));
+        return ['question' => $question];
     }
 
 
     public function edit(Question $question)
     {
-        return view('questions.edit', ['question' => $question]);
+        return ['question' => $question];
     }
 
     public function update(QuestionRequest $request, Question $question)
     {
         $question->fill($request->all())->save();
-        return redirect(route('questions.show', ['question' => $question]));
+        return $question;
     }
 
     public function destroy(Question $question)
     {
         $question->delete();
-        return redirect(route('home'));
+        return $question;
     }
 
-    public function show(Question $question)
+    public function show(Request $request, $question_id)
     {
-        $answers = $question->answers->sortByDesc('best_answer');
-        if($question)
-        return view('questions.show', ['question' => $question, 'answers' => $answers]);
+        $question = Question::where('id', $question_id)->withCount(['answers', 'likes'])->first()->load('answers', 'user');
+        $answers = $question->answers->sortByDesc('best_answer')->load(['comments', 'user', 'comments.user']);
+        $initialIsLikedBy = $question->isLikedBy($request->user());
+        return ['question' => $question, 'answers' => $answers, 'initialIsLikedBy' => $initialIsLikedBy];
     }
 
     public function like(Request $request, Question $question)
@@ -73,18 +75,22 @@ class QuestionController extends Controller
         ];
     }
 
-    public function best_answer(Question $question, $answer_id) {
-        $question->best_answer = $answer_id;
+    public function best_answer(Question $question, $answer)
+    {
+        $question->best_answer = $answer;
         $question->save();
         return back();
     }
-    public function search(Request $request) {
-        $query = Question::query()->orderBy('id', 'asc');
-        $content = $request->content;
-        if(isset($request->content)){
-            $query->where('body', 'like', "%" . $request->content . "%");
+    public function search($content)
+    {
+        $query = Question::query();
+        if($content !== null) {
+            $query->when($content, function ($query, $content) {
+                return  $query->where('body', 'like', "%" . $content . "%");
+            });
         }
-        $questions = $query->get();
-        return view('questions.search',['questions' => $questions, 'content' => $content]);
+
+        $questions = $query->get()->load(['answers', 'user']);
+        return ['questions' => $questions];
     }
 }
