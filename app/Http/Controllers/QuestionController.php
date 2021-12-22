@@ -12,10 +12,10 @@ use SebastianBergmann\Environment\Console;;
 
 class QuestionController extends Controller
 {
-    // public function __constract()
-    // {
-    //     $this->authorizeResource(Question::class, 'question');
-    // }
+    public function __constract()
+    {
+        $this->authorizeResource(Question::class, 'question');
+    }
 
     public function create()
     {

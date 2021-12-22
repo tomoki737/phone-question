@@ -11,7 +11,8 @@ const state = {
 const getters = {
     check: state => !!state.user,
     name: state => (state.user ? state.user.name : ""),
-    id: state => (state.user ? state.user.id : "")
+    id: state => (state.user ? state.user.id : ""),
+    user: state => (state.user ? state.use : "")
 };
 
 const mutations = {

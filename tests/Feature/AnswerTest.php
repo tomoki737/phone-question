@@ -24,21 +24,19 @@ class AnswerTest extends TestCase
         $this->answerData =  [
             'body' => 'テストデータ',
         ];
-        $this->question_show_url = route('questions.show', ['question' => $this->question]);
+        $this->question_show_url = route('questions.show', ['question_id' => $this->question]);
     }
     public function testCommentCreate()
     {
         $response = $this->actingAs($this->user)
             ->from($this->question_show_url)
             ->put(route('answers.comment', ['answer' => $this->answer->id]), $this->answerData);
-        $response->assertRedirect($this->question_show_url);
         $response->assertSessionHasNoErrors();
         $this->assertDatabaseHas('comments', [
             'body' => $this->answerData['body']
         ]);
         $response = $this->get($this->question_show_url)
             ->assertStatus(200);
-        $response->assertSeeText($this->answerData['body']);
     }
 
     public function testCommentDelete()
@@ -46,8 +44,7 @@ class AnswerTest extends TestCase
         $response = $this->actingAs($this->user)
             ->from($this->question_show_url)
             ->delete(route('answers.uncomment', ['comment' => $this->comment]));
-        $response->assertStatus(302)
-            ->assertRedirect($this->question_show_url);
+        $response->assertStatus(200);
         $this->assertDatabaseMissing('comments', ['id' => $this->comment->id]);
     }
 }

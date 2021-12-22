@@ -221,7 +221,7 @@ export default {
   },
   data() {
     return {
-      question: this.question,
+      question: {},
       initialIsLikedBy: false,
       count_likes: 0,
       answers: {},

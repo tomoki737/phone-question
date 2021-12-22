@@ -17,7 +17,7 @@ Route::prefix('questions')->name('questions.')->group(function () {
 });
 Route::get('/search/{content}', 'QuestionController@search')->name('questions.search');
 Route::get('/questions/{question_id}/show', 'QuestionController@show')->name('questions.show');
-Route::resource('/questions', 'QuestionController')->only(['store', 'update', 'destroy']);
+Route::resource('/questions', 'QuestionController')->only(['store', 'update', 'destroy', 'edit']);
 
 Route::resource('/answers', 'AnswerController', ['except' => ['index', 'show', 'create', 'store']])->middleware('auth');
 Route::prefix('answers')->name('answers.')->group(function () {

@@ -9,8 +9,7 @@ class UserController extends Controller
 {
     public function show($name)
     {
-        $user = User::where('name', $name)->first();
-        $questions = $user->questions->sortByDesc('created_at');
+        $user = User::where('name', $name)->with('isFollowedBy')->withCount(['followers', 'followings'])->first();
         return ['user' => $user];
     }
     public function questions($name)

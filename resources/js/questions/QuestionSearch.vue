@@ -44,7 +44,6 @@ export default {
   },
   methods: {
     async getQuestions() {
-      console.log(this.content);
       const response = await axios.get("/api/search/" + this.content);
       this.questions = response.data.questions;
     },
@@ -55,7 +54,6 @@ export default {
       }
   },
   mounted() {
-    console.log(this.questions);
     this.getQuestions();
   },
 };

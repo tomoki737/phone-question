@@ -2,13 +2,24 @@
   <div class="container" style="max-width: 800px">
     <div class="row">
       <div class="border-bottom mt-4 text-left h3">質問</div>
+          <div class="md-form mt-2">
+            <label>タイトル</label>
+            <input
+              type="text"
+              id="title"
+              class="form-control"
+              placeholder="タイトルを入力してください"
+              required
+              v-model="question.title"
+            />
+          </div>
       <div class="form-group mt-3 mx-auto" style="max-width: 50rem">
         <textarea
           name="body"
           required
           class="form-control"
           rows="7"
-          placeholder="回答を入力してください"
+          placeholder="質問を入力してください"
           v-model="question.body"
         ></textarea>
       </div>
@@ -24,7 +35,7 @@
 export default {
   props: {
     question_id: {
-      type: Number,
+      type: [Number, String],
     },
   },
   data() {
@@ -41,18 +52,17 @@ export default {
     },
     async update() {
       const response = await axios.put(
-        "/api/questions/" + this.question.id,
+        "/api/questions/" + this.question_id,
         this.question
       );
       this.$router.push({
         name: "questions.show",
-        params: { question_id: this.question.id },
+        params: { question_id: this.question_id },
       });
     },
   },
   mounted() {
     this.getQuestion();
-    console.log(this.question)
   },
 };
 </script>

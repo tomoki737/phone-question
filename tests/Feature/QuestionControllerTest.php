@@ -18,58 +18,26 @@ class QuestionControllerTest extends TestCase
         $this->user = factory(User::class)->create();
         $this->question = factory(Question::class)->create(['user_id' => $this->user->id]);
         $this->answer = factory(Answer::class)->create(['user_id' => $this->user->id, 'question_id' => $this->question->id]);
-        $this->question_show_url = route('questions.show', ['question' => $this->question]);
+        $this->question_show_url = route('questions.show', ['question_id' => $this->question->id]);
         $this->questionData =  [
             'title' => 'テストデータ',
             'body' => 'テストデータ',
         ];
     }
-    public function testIndex()
-    {
-        $response = $this->get(route('home'));
-
-        $response->assertStatus(200)
-            ->assertViewIs('home');
-    }
-
-    public function testGuestCreate()
-    {
-        $response = $this->get(route('questions.create'));
-
-        $response->assertRedirect(route('login'));
-    }
-
-    public function testAuthCreate()
-    {
-        $response = $this->actingAs($this->user)
-            ->get(route('questions.create'));
-
-        $response->assertStatus(200)
-            ->assertViewIs('questions.create');
-    }
 
     public function testStore()
     {
-        $response = $this->actingAs($this->user)
-            ->get(route('questions.create'));
-        $response->assertStatus(200);
-        $response->assertViewIs('questions.create');
-
-        $response = $this->post(route('questions.store'), $this->questionData);
+        $response = $this->actingAs($this->user)->post(route('questions.store'), $this->questionData);
         $response->assertSessionHasNoErrors();
-        $response->assertStatus(302);
-
+        $response->assertStatus(200);
         $this->assertDatabaseHas('questions', [
             'title' => 'テストデータ',
         ]);
 
         $response = $this->get(route('un_solve'))
             ->assertStatus(200);
-        $response->assertSeeText('一覧');
         $response = $this->get(route('un_solve'))
             ->assertStatus(200);
-        $response->assertViewIs('un_solve');
-        $response->assertSeeText($this->questionData['title']);
     }
 
     public function testUpdate()
@@ -79,7 +47,7 @@ class QuestionControllerTest extends TestCase
 
         $update_url = route('questions.update', ['question' => $this->question]);
         $response = $this->put($update_url, $this->questionData);
-        $response->assertStatus(302);
+        $response->assertStatus(200);
         $this->assertDatabaseHas('questions', ['title' => 'テストデータ']);
     }
 
@@ -87,8 +55,7 @@ class QuestionControllerTest extends TestCase
     {
         $response = $this->actingAs($this->user)
             ->delete(route('questions.destroy', ['question' => $this->question->id]));
-        $response->assertStatus(302)
-            ->assertRedirect(route('home'));
+        $response->assertStatus(200);
         $this->assertDatabaseMissing('questions', ['id' => $this->question->id]);
     }
 
@@ -105,9 +72,7 @@ class QuestionControllerTest extends TestCase
     public function testSearch()
     {
         $content = $this->question->body;
-        $response = $this->put(route('questions.search', ['content' => $content]));
-        $response->assertStatus(200)
-            ->assertViewIs('questions.search');
-        $response->assertSeeText('検索画面');
+        $response = $this->get(route('questions.search', ['content' => $content]));
+        $response->assertStatus(200);
     }
 }

@@ -16,12 +16,12 @@
               </div>
               <!-- @endif -->
             </div>
-            <div class="col-sm p-2 ps-sm-3">
-              <a class="text-decoration-none text-dark me-2">フォロー </a>
-              <a class="text-decoration-none text-dark">フォロワー</a>
-              <!-- <a class="text-decoration-none text-dark me-2">フォロー {{user.count_followings}}</a>
+            <!-- <div class="col-sm p-2 ps-sm-3">
+              <p class="text-decoration-none text-dark me-2" @click="changeTab(4)">フォロー {{user.followings_count}} </p>
+              <p class="text-decoration-none text-dark" @click="changeTab(5)">フォロワー {{user.followers_count}}</p> -->
+            <!-- <a class="text-decoration-none text-dark me-2">フォロー {{user.count_followings}}</a>
             <a  class="text-decoration-none text-dark">フォロワー {{user.count_followers}}</a> -->
-            </div>
+            <!-- </div> -->
           </div>
         </div>
         <div class="col-sm-12">
@@ -83,6 +83,8 @@
             :user_name="user_name"
           ></user-answer>
           <user-like v-show="isActive === 3" :user_name="user_name"></user-like>
+          <!-- <followee ></followee>
+          <follower></follower> -->
         </div>
       </div>
     </div>
@@ -92,11 +94,15 @@
 import UserQuestion from "./UserQuestion.vue";
 import UserAnswer from "./UserAnswer.vue";
 import UserLike from "./UserLike.vue";
+import Follower from "./Follower.vue";
+import Followee from "./Followee.vue";
 export default {
   components: {
     UserQuestion,
     UserAnswer,
     UserLike,
+    Follower,
+    Followee,
   },
   props: {
     user_name: {

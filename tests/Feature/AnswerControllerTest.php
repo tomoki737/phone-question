@@ -22,7 +22,7 @@ class AnswerControllerTest extends TestCase
         $this->answerData =  [
             'body' => 'テストデータ',
         ];
-        $this->question_show_url = route('questions.show', ['question' => $this->question]);
+        $this->question_show_url = route('questions.show', ['question_id' => $this->question]);
     }
 
     public function testCreate()
@@ -32,17 +32,14 @@ class AnswerControllerTest extends TestCase
             ->get($this->question_show_url)
             ->assertStatus(200);
         $response = $this->actingAs($this->user)
-            ->put(route('answers.store', ['question' => $this->question->id]), $this->answerData);
-        $response->assertStatus(302);
-        $response->assertRedirect($this->question_show_url);
+            ->put(route('answers.store', ['question_id' => $this->question->id]), $this->answerData);
+        $response->assertStatus(200);
         $response->assertSessionHasNoErrors();
         $this->assertDatabaseHas('answers', [
             'body' => 'テストデータ'
         ]);
         $response = $this->get($this->question_show_url)
             ->assertStatus(200);
-        $response->assertSeeText('回答');
-        $response->assertSeeText($this->answerData['body']);
     }
 
     public function testUpdate()
@@ -51,8 +48,7 @@ class AnswerControllerTest extends TestCase
             ->get(route('answers.edit', ['answer' => $this->answer]));
         $update_url = route('answers.update', ['answer' => $this->answer]);
         $response = $this->put($update_url, $this->answerData);
-        $response->assertStatus(302)
-            ->assertRedirect($this->question_show_url);
+        $response->assertStatus(200);
         $this->assertDatabaseHas('answers', ['body' => 'テストデータ']);
     }
 
@@ -61,8 +57,7 @@ class AnswerControllerTest extends TestCase
         $response = $this->actingAs($this->user)
             ->from( $this->question_show_url)
             ->delete(route('answers.destroy', ['answer' => $this->answer]));
-        $response->assertStatus(302)
-            ->assertRedirect($this->question_show_url);
+        $response->assertStatus(200);
         $this->assertDatabaseMissing('answers', ['id' => $this->answer->id]);
     }
 }

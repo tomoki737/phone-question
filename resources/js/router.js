@@ -8,6 +8,8 @@ import QuestionEdit from "./questions/QuestionEdit";
 import AnswerEdit from "./answers/AnswerEdit";
 import QuestionSearch from "./questions/QuestionSearch";
 import User from "./users/User";
+import Follower from "./users/Follower";
+import Followee from "./users/Followee";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import SystemError from "./errors/System.vue";
